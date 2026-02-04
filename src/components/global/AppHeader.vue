@@ -57,8 +57,8 @@ onUnmounted(() => {
         </nav>
 
         <div class="header-actions">
-          <a href="http://localhost:5173/login" class="btn-login">Login</a>
-          <a href="http://localhost:5173/register" class="btn-primary-sm">Começar agora</a>
+          <router-link to="/login" class="btn-login">Login</router-link>
+          <router-link to="/register" class="btn-primary-sm">Começar agora</router-link>
         </div>
 
         <!-- Mobile Toggle -->
@@ -75,8 +75,8 @@ onUnmounted(() => {
           <a href="#beneficios" @click="toggleMobileMenu()">Benefícios</a>
           <a href="#faq" @click="toggleMobileMenu()">FAQ</a>
           <div class="mobile-actions-list">
-            <a href="http://localhost:5173/login" class="btn-login-mobile">Login</a>
-            <a href="http://localhost:5173/register" class="btn-primary mobile-full">Começar agora</a>
+            <router-link to="/login" class="btn-login-mobile">Login</router-link>
+            <router-link to="/register" class="btn-primary mobile-full">Começar agora</router-link>
           </div>
         </nav>
       </div>

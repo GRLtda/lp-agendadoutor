@@ -182,9 +182,9 @@ function toggleFaq(index) {
             </p>
             
             <div class="cta-group-centered animate-slide-up delay-300">
-              <a href="http://localhost:5173/login" class="btn-primary btn-lg">
+              <router-link to="/login" class="btn-primary btn-lg">
                 Entrar na Conta
-              </a>
+              </router-link>
               <a href="https://wa.me/5511921923978" target="_blank" class="btn-secondary btn-lg">
                  Fale com nossa equipe
               </a>
