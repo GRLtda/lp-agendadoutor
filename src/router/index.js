@@ -57,7 +57,9 @@ const router = createRouter({
             component: () => null,
             beforeEnter(to) {
                 const targetUrl = import.meta.env.VITE_APP_URL || 'http://localhost:5173'
-                const path = to.params.pathMatch ? `/${to.params.pathMatch}` : ''
+                const pathMatch = to.params.pathMatch
+                const pathString = Array.isArray(pathMatch) ? pathMatch.join('/') : (pathMatch || '')
+                const path = pathString ? `/${pathString}` : ''
                 window.location.href = `${targetUrl}${path}`
             }
         },
