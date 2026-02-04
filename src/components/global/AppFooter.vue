@@ -46,7 +46,7 @@ import { Instagram, MessageCircle } from 'lucide-vue-next'
     
     <div class="footer-bottom container">
       <div class="copyright">
-        © {{ new Date().getFullYear() }} Agenda Doutor. Todos os direitos reservados.
+        © {{ new Date().getFullYear() }} Agenda Doutor. Todos os direitos reservados...
       </div>
       <div class="social-links">
           <a href="https://instagram.com/agendadoutor"  class="social-icon"><Instagram :size="20"/></a>

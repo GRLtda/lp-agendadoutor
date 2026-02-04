@@ -58,7 +58,7 @@ onUnmounted(() => {
 
         <div class="header-actions">
           <router-link to="/login" class="btn-login">Login</router-link>
-          <router-link to="/register" class="btn-primary-sm">Começar agora</router-link>
+          <a href="https://wa.me/5511921923978" target="_blank" class="btn-primary-sm">Começar agora</a>
         </div>
 
         <!-- Mobile Toggle -->
@@ -76,7 +76,7 @@ onUnmounted(() => {
           <a href="#faq" @click="toggleMobileMenu()">FAQ</a>
           <div class="mobile-actions-list">
             <router-link to="/login" class="btn-login-mobile">Login</router-link>
-            <router-link to="/register" class="btn-primary mobile-full">Começar agora</router-link>
+            <a href="https://wa.me/5511921923978" target="_blank" class="btn-primary mobile-full">Começar agora</a>
           </div>
         </nav>
       </div>
