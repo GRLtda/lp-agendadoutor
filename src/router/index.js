@@ -50,6 +50,17 @@ const router = createRouter({
                 window.location.href = `${import.meta.env.VITE_APP_URL || 'http://localhost:5173'}/register`
             }
         },
+        // Legacy Redirect
+        {
+            path: '/app/:pathMatch(.*)*',
+            name: 'legacy-app',
+            component: () => null,
+            beforeEnter(to) {
+                const targetUrl = import.meta.env.VITE_APP_URL || 'http://localhost:5173'
+                const path = to.params.pathMatch ? `/${to.params.pathMatch}` : ''
+                window.location.href = `${targetUrl}${path}`
+            }
+        },
     ],
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
