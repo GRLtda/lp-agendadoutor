@@ -5,8 +5,22 @@ import AppFooter from '@/components/global/AppFooter.vue'
 // Changelog entries - futuramente pode vir de um .md ou API
 const changelog = [
   {
+    date: '21 Fev 2026',
+    version: 'v1.9.3',
+    title: 'Calendário Inteligente',
+    description: 'Nova interface de calendário com foco em mobilidade e organização.',
+    items: [
+      { category: 'Calendário:', items: [
+        'Novo painel de filtros rápido por médico e status do agendamento',
+        'Visualização mensal com contador de agendamentos por dia',
+        'Layout 100% responsivo com Drawer lateral para filtros no celular',
+        'Melhorias na navegação entre datas e agendamentos'
+      ] }
+    ]
+  },
+  {
     date: '14 Jan 2026',
-    version: 'v1.9.2',
+    version: 'v1.9.1',
     title: 'Correção de Rótulos',
     description: 'Ajuste na nomenclatura dos logs de mensagens.',
     items: [
