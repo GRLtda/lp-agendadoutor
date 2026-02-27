@@ -5,6 +5,28 @@
             "destination": "/index.html"
         }
     ],
+    "redirects": [
+        {
+            "source": "/(?:.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "(.+\\.)?questionario\\.agendadoutor\\.com"
+                }
+            ],
+            "destination": "https://agendadoutor.com/questionario"
+        },
+        {
+            "source": "/(?:.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "questionario.agendadoutor.com"
+                }
+            ],
+            "destination": "https://agendadoutor.com/questionario"
+        }
+    ],
     "headers": [
         {
             "source": "/(.*)",
