@@ -35,6 +35,12 @@ const router = createRouter({
             meta: { title: 'Novidades - Agenda Doutor' }
         },
         {
+            path: '/questionario',
+            name: 'survey',
+            component: () => import('../views/SurveyView.vue'),
+            meta: { title: 'Avaliação - Agenda Doutor' }
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => null,
