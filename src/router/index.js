@@ -41,6 +41,30 @@ const router = createRouter({
             meta: { title: 'Avaliação - Agenda Doutor' }
         },
         {
+            path: '/ajuda',
+            name: 'help-center',
+            component: () => import('../views/HelpCenter/HelpCenterHome.vue'),
+            meta: { title: 'Central de Ajuda - Agenda Doutor' }
+        },
+        {
+            path: '/ajuda/busca',
+            name: 'help-center-search',
+            component: () => import('../views/HelpCenter/HelpCenterSearch.vue'),
+            meta: { title: 'Buscar - Central de Ajuda' }
+        },
+        {
+            path: '/ajuda/:categorySlug',
+            name: 'help-center-category',
+            component: () => import('../views/HelpCenter/HelpCenterCategory.vue'),
+            meta: { title: 'Categoria - Central de Ajuda' }
+        },
+        {
+            path: '/ajuda/:categorySlug/:articleSlug',
+            name: 'help-center-article',
+            component: () => import('../views/HelpCenter/HelpCenterArticle.vue'),
+            meta: { title: 'Artigo - Central de Ajuda' }
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => null,
