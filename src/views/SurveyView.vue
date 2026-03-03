@@ -9,6 +9,7 @@ const formData = ref({
   biggestDifficulty: '',
   favoriteFeature: '',
   usageFrequency: '',
+  isAnonymous: false,
 })
 
 const roles = ['Recepcionista', 'Médica', 'Dono']
@@ -16,7 +17,10 @@ const isSubmitting = ref(false)
 const submitted = ref(false)
 
 const submitSurvey = async () => {
-  if (!formData.value.name || !formData.value.role || formData.value.npsScore === null) return
+  const { name, role, npsScore, isAnonymous } = formData.value
+  
+  if (!isAnonymous && (!name || !role)) return
+  if (npsScore === null) return
 
   isSubmitting.value = true
   try {
@@ -64,7 +68,7 @@ const submitSurvey = async () => {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 class="title text-success">Muito Obrigado! 💖</h2>
+        <h2 class="title text-success">Muito Obrigado!</h2>
         <p class="subtitle text-center">
            Ficamos muito contentes em ter você usando o sistema Agenda Doutor. Suas respostas são fundamentais para evoluirmos!
         </p>
@@ -77,32 +81,52 @@ const submitSurvey = async () => {
           <p class="subtitle">Queremos entender o que você mais gosta e como podemos melhorar!</p>
         </div>
 
-        <div class="form-row">
-          <!-- Nome -->
-          <div class="form-group">
-            <label class="form-label">Seu Nome *</label>
-            <input 
-              v-model="formData.name" 
-              type="text" 
-              required
-              class="form-input"
-              placeholder="Ex: Maria Joana"
-            />
-          </div>
-
-          <!-- Cargo -->
-          <div class="form-group">
-            <label class="form-label">Seu Cargo *</label>
-            <select 
-              v-model="formData.role"
-              required
-              class="form-select"
-            >
-              <option value="" disabled>Selecione um Cargo</option>
-              <option v-for="role in roles" :key="role" :value="role">{{ role }}</option>
-            </select>
-          </div>
+        <!-- Modo Anônimo Toggle -->
+        <div class="anonymous-toggle-container">
+          <label class="anonymous-label">
+            <div class="toggle-wrapper">
+              <input 
+                type="checkbox" 
+                v-model="formData.isAnonymous" 
+                class="toggle-input"
+              />
+              <div class="toggle-slider"></div>
+            </div>
+            <span class="toggle-text">Responder de forma anônima</span>
+          </label>
+          <p class="toggle-hint" v-if="formData.isAnonymous">
+            Seus dados de identificação não serão enviados.
+          </p>
         </div>
+
+        <transition name="fade">
+          <div v-if="!formData.isAnonymous" class="form-row">
+            <!-- Nome -->
+            <div class="form-group">
+              <label class="form-label">Seu Nome *</label>
+              <input 
+                v-model="formData.name" 
+                type="text" 
+                :required="!formData.isAnonymous"
+                class="form-input"
+                placeholder="Ex: Maria Joana"
+              />
+            </div>
+
+            <!-- Cargo -->
+            <div class="form-group">
+              <label class="form-label">Seu Cargo *</label>
+              <select 
+                v-model="formData.role"
+                :required="!formData.isAnonymous"
+                class="form-select"
+              >
+                <option value="" disabled>Selecione um Cargo</option>
+                <option v-for="role in roles" :key="role" :value="role">{{ role }}</option>
+              </select>
+            </div>
+          </div>
+        </transition>
 
         <!-- Pergunta 1: NPS -->
         <div class="form-group pt-divider">
@@ -211,6 +235,92 @@ const submitSurvey = async () => {
 </template>
 
 <style scoped>
+/* Anonymous Toggle */
+.anonymous-toggle-container {
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.anonymous-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-wrapper {
+  position: relative;
+  width: 2.75rem;
+  height: 1.5rem;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e2e8f0;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 1.1rem;
+  width: 1.1rem;
+  left: 0.2rem;
+  bottom: 0.2rem;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toggle-input:checked + .toggle-slider {
+  background-color: var(--azul-principal);
+}
+
+.toggle-input:checked + .toggle-slider:before {
+  transform: translateX(1.25rem);
+}
+
+.toggle-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.toggle-hint {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  margin-left: 3.5rem;
+}
+
+/* Transitions */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
 /* Page & Container */
 .survey-page {
   min-height: 100vh;
