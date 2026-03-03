@@ -103,7 +103,7 @@ const submitSurvey = async () => {
           <div v-if="!formData.isAnonymous" class="form-row">
             <!-- Nome -->
             <div class="form-group">
-              <label class="form-label">Seu Nome *</label>
+              <label class="form-label">Seu Nome <span class="required-mark">*</span></label>
               <input 
                 v-model="formData.name" 
                 type="text" 
@@ -115,7 +115,7 @@ const submitSurvey = async () => {
 
             <!-- Cargo -->
             <div class="form-group">
-              <label class="form-label">Seu Cargo *</label>
+              <label class="form-label">Seu Cargo <span class="required-mark">*</span></label>
               <select 
                 v-model="formData.role"
                 :required="!formData.isAnonymous"
@@ -131,7 +131,7 @@ const submitSurvey = async () => {
         <!-- Pergunta 1: NPS -->
         <div class="form-group pt-divider">
           <label class="form-label">
-            1. De 0 a 10, qual é a probabilidade de você recomendar o Agenda Doutor? *
+            1. De 0 a 10, qual é a probabilidade de você recomendar o Agenda Doutor? <span class="required-mark">*</span>
           </label>
           <div class="nps-group">
             <label 
@@ -600,4 +600,9 @@ const submitSurvey = async () => {
 
 .opacity-25 { opacity: 0.25; }
 .opacity-75 { opacity: 0.75; }
+
+.required-mark {
+  color: #ef4444; /* red-500 */
+  margin-left: 1px;
+}
 </style>
