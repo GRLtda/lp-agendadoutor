@@ -5,6 +5,27 @@ import AppFooter from '@/components/global/AppFooter.vue'
 // Changelog entries - futuramente pode vir de um .md ou API
 const changelog = [
   {
+    date: '07 Mar 2026',
+    version: 'v1.9.4',
+    title: 'Notificações Push e Estoque',
+    description: 'A grande atualização traz alertas em tempo real e um controle de insumos totalmente reimaginado para sua clínica.',
+    items: [
+      { category: 'Comunicação:', items: [
+        'Novo sistema de Notificações Push nativas',
+        'Receba notificações de agendamentos em tempo real',
+      ] },
+      { category: 'Estoque:', items: [
+        'Dashboard de visão geral de insumos totalmente redesenhado',
+        'Novo sistema preditivo de alertas de estoque mínimo',
+        'Alerta inteligente de vencimento de lotes próximos na tela principal'
+      ] },
+      { category: 'Configurações:', items: [
+        'Reestruturação da aba de Configurações',
+        'Nova aba "Geral" dedicada para parâmetros da clínica'
+      ] }
+    ]
+  },
+  {
     date: '21 Fev 2026',
     version: 'v1.9.3',
     title: 'Calendário Inteligente',

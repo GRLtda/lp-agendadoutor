@@ -1,6 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
+import { gsap } from 'gsap'
+import { TextPlugin } from 'gsap/TextPlugin'
+
+gsap.registerPlugin(TextPlugin)
+
 import {
   Check,
   Zap,
@@ -29,6 +34,8 @@ import fotoMedica from '@/assets/imgs/foto_medica.webp'
 import imageAgenda from '@/assets/imgs/dashboard.png'
 import imageProntuario from '@/assets/imgs/Pronturario.png'
 
+const heroTitleRef = ref(null)
+
 onMounted(() => {
   
   const observer = new IntersectionObserver(
@@ -45,6 +52,20 @@ onMounted(() => {
   document.querySelectorAll('.animate-on-scroll').forEach((el) => {
     observer.observe(el)
   })
+
+  // GSAP Typing Animation for Hero Title
+  if (heroTitleRef.value) {
+    const originalHtml = heroTitleRef.value.innerHTML;
+    heroTitleRef.value.innerHTML = ''; // Start empty
+    gsap.to(heroTitleRef.value, {
+      duration: 2.5,
+      text: {
+        value: "Organize sua agenda e <span class='text-highlight' style='white-space: nowrap;'>Reduza&nbsp;Faltas</span> em um só lugar."
+      },
+      delay: 0.2,
+      ease: "none"
+    });
+  }
 })
 
 const features = [
@@ -174,7 +195,7 @@ function toggleFaq(index) {
                 <span>Mais de <strong>100 Profissionais</strong> confiam</span>
             </div>
 
-            <h1 class="hero-title animate-slide-up delay-100">
+            <h1 class="hero-title animate-slide-up delay-100" ref="heroTitleRef">
               Organize sua agenda e <span class="text-highlight" style="white-space: nowrap;">Reduza&nbsp;Faltas</span> em um só lugar.
             </h1>
             <p class="hero-subtitle animate-slide-up delay-200">
