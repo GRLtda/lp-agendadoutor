@@ -539,10 +539,26 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .btn-login:hover { color: var(--primary); }
 
 .text-highlight {
-  color: var(--primary);
-  background: rgba(37, 99, 235, 0.1);
+  background-image: linear-gradient(rgba(37, 99, 235, 0.102), rgba(37, 99, 235, 0.102));
+  background-repeat: no-repeat;
+  background-size: 0% 100%; 
+  
   padding: 0 0.2em;
   border-radius: 4px;
+  display: inline;
+  color: var(--primary);
+  
+  animation: highlight-draw 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes highlight-draw {
+  0% {
+    background-size: 0% 100%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
 }
 
 /* Glassmorphism Panel */
