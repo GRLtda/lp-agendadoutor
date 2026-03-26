@@ -1,5 +1,10 @@
-const CLARITY_PROJECT_ID = (import.meta.env.VITE_CLARITY_PROJECT_ID || 'w1l1yt6dvk').trim()
+const CLARITY_PROJECT_ID = (import.meta.env.VITE_CLARITY_PROJECT_ID || '').trim()
 const TRACKED_CLICK_SELECTOR = '[data-track-click]'
+const ALLOWED_HOSTS = (import.meta.env.VITE_ANALYTICS_ALLOWED_HOSTS || '')
+  .split(',')
+  .map((host) => host.trim().toLowerCase())
+  .filter(Boolean)
+const ALLOW_BOT_TRAFFIC = String(import.meta.env.VITE_ANALYTICS_ALLOW_BOTS || 'false').toLowerCase() === 'true'
 
 let analyticsInitialized = false
 let clickTrackingAttached = false
@@ -17,6 +22,46 @@ function sanitizeEventName(value) {
     .replace(/^_+|_+$/g, '')
 
   return safeValue || 'unknown'
+}
+
+function isAllowedHost() {
+  if (!ALLOWED_HOSTS.length) return true
+  return ALLOWED_HOSTS.includes(window.location.hostname.toLowerCase())
+}
+
+function isLikelyBotTraffic() {
+  if (ALLOW_BOT_TRAFFIC) return false
+
+  const ua = (navigator.userAgent || '').toLowerCase()
+  const botSignatures = [
+    'bot',
+    'crawler',
+    'spider',
+    'headlesschrome',
+    'lighthouse',
+    'google-inspectiontool',
+    'bingpreview',
+    'uptimerobot',
+    'pingdom',
+    'datadog',
+    'newrelic',
+    'curl/',
+    'wget/',
+    'python-requests',
+    'postmanruntime',
+    'vercel'
+  ]
+
+  const matchesUa = botSignatures.some((signature) => ua.includes(signature))
+  const webdriverFlag = navigator.webdriver === true
+
+  return matchesUa || webdriverFlag
+}
+
+function shouldSkipAnalytics() {
+  if (!isAllowedHost()) return true
+  if (isLikelyBotTraffic()) return true
+  return false
 }
 
 function ensureClarityQueue() {
@@ -52,7 +97,7 @@ function attachTrackedClickEvents() {
 }
 
 export function initBehaviorAnalytics() {
-  if (!isBrowser() || analyticsInitialized || !CLARITY_PROJECT_ID) return false
+  if (!isBrowser() || analyticsInitialized || !CLARITY_PROJECT_ID || shouldSkipAnalytics()) return false
 
   ensureClarityQueue()
 
