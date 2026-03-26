@@ -31,7 +31,7 @@ import { Instagram, MessageCircle } from 'lucide-vue-next'
       
       <div class="footer-col links-col">
         <h4>Suporte</h4>
-        <a href="https://wa.me/5511921923978">Central de Ajuda</a>
+        <router-link to="/ajuda">Central de Ajuda</router-link>
         <a href="https://wa.me/5511921923978">Fale Conosco</a>
         <a href="https://wa.me/5511921923978">WhatsApp</a>
       </div>

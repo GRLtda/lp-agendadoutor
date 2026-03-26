@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Syne:wght@400..800&display=swap');
 
+@font-face {
+  font-family: 'Oakes';
+  src: url('../fonts/OakesRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oakes';
+  src: url('../fonts/OakesMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oakes';
+  src: url('../fonts/OakesSemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Cores */
   --branco: #ffffff;
@@ -19,6 +43,12 @@
   --dp-primary-text-color: var(--branco);
   --dp-secondary-color: #f3f4f6;
   --dp-hover-color: #eef2ff;
+
+  /* Tokens da Landing */
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --text-main: #1e293b;
+  --landing-font: 'Oakes', 'Montserrat', sans-serif;
 }
 
 body {

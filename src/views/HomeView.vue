@@ -639,6 +639,18 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
   align-items: center;
 }
 
+.help-cta-link {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  border-bottom: 1px dashed #94a3b8;
+}
+
+.help-cta-link:hover {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
 /* Visual - Centered */
 .hero-visual {
   width: 100%;

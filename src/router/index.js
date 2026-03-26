@@ -41,6 +41,12 @@ const router = createRouter({
             meta: { title: 'Avaliação - Agenda Doutor' }
         },
         {
+            path: '/ajuda',
+            name: 'help-center',
+            component: () => import('../views/HelpCenterView.vue'),
+            meta: { title: 'Central de Ajuda - Agenda Doutor' }
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => null,

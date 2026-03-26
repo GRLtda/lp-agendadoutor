@@ -20,6 +20,7 @@ function handleScroll() {
 function scrollToSection(id) {
   // Se não estiver na home, vai para a home primeiro
   if (route.path !== '/') {
+    if (isMobileMenuOpen.value) toggleMobileMenu()
     router.push({ path: '/', hash: `#${id}` })
     return
   }
@@ -52,7 +53,7 @@ onUnmounted(() => {
         <nav class="desktop-nav">
           <a href="#funcionalidades" @click.prevent="scrollToSection('funcionalidades')">Funcionalidades</a>
           <a href="#beneficios" @click.prevent="scrollToSection('beneficios')">Benefícios</a>
-          <a href="#faq" @click.prevent="scrollToSection('faq')">FAQ</a>
+          <router-link to="/ajuda">Central de Ajuda</router-link>
           <a href="#contato" @click.prevent="scrollToSection('footer')">Contato</a>
         </nav>
 
@@ -71,11 +72,12 @@ onUnmounted(() => {
       <!-- Mobile Menu -->
       <div v-if="isMobileMenuOpen" class="mobile-menu">
         <nav>
-          <a href="#funcionalidades" @click="toggleMobileMenu()">Funcionalidades</a>
-          <a href="#beneficios" @click="toggleMobileMenu()">Benefícios</a>
-          <a href="#faq" @click="toggleMobileMenu()">FAQ</a>
+          <a href="#funcionalidades" @click.prevent="scrollToSection('funcionalidades')">Funcionalidades</a>
+          <a href="#beneficios" @click.prevent="scrollToSection('beneficios')">Benefícios</a>
+          <a href="#faq" @click.prevent="scrollToSection('faq')">FAQ</a>
+          <router-link to="/ajuda" @click="toggleMobileMenu()">Central de Ajuda</router-link>
           <div class="mobile-actions-list">
-            <router-link to="/login" class="btn-login-mobile">Login</router-link>
+            <router-link to="/login" class="btn-login-mobile" @click="toggleMobileMenu()">Login</router-link>
             <a href="https://wa.me/5511921923978" target="_blank" class="btn-primary mobile-full">Começar agora</a>
           </div>
         </nav>
@@ -95,6 +97,7 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.1); 
   backdrop-filter: blur(0px);
+  font-family: var(--landing-font, 'Montserrat', sans-serif);
 }
 .landing-header.is-scrolled {
   background: rgba(255, 255, 255, 0.9);
@@ -116,19 +119,19 @@ onUnmounted(() => {
 
 .desktop-nav { 
   display: flex; 
-  gap: 2rem; 
+  gap: 1.5rem; 
   align-items: center; 
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 .desktop-nav a { font-weight: 500; font-size: 0.95rem; color: #475569; position: relative; cursor: pointer; text-decoration: none; }
-.desktop-nav a:hover { color: var(--primary); }
+.desktop-nav a:hover { color: var(--primary, #2563eb); }
 
 .header-actions { display: flex; align-items: center; gap: 1rem; }
 
 .btn-primary-sm {
-  background: var(--primary);
+  background: var(--primary, #2563eb);
   color: white;
   padding: 0.6rem 1.25rem;
   font-size: 0.9rem;
@@ -140,15 +143,15 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   text-decoration: none;
 }
-.btn-primary-sm:hover { background: var(--primary-dark); }
+.btn-primary-sm:hover { background: var(--primary-dark, #1e40af); }
 
 .btn-login {
-  color: var(--text-main);
+  color: var(--text-main, #1e293b);
   padding: 0.6rem 1.25rem;
   font-weight: 500;
   text-decoration: none;
 }
-.btn-login:hover { color: var(--primary); }
+.btn-login:hover { color: var(--primary, #2563eb); }
 
 .mobile-toggle { display: none; background: none; border: none; cursor: pointer; color: #0f172a; }
 
@@ -165,7 +168,7 @@ onUnmounted(() => {
 .btn-login-mobile { text-align: center; padding: 0.8rem; background: #f8fafc; border-radius: 8px; font-weight: 600; text-decoration: none; color: #1e293b; }
 
 .btn-primary {
-  background: var(--primary);
+  background: var(--primary, #2563eb);
   color: white;
   padding: 0.875rem 2rem;
   box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
