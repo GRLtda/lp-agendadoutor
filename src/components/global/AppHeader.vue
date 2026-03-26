@@ -44,21 +44,21 @@ onUnmounted(() => {
   <header class="landing-header" :class="{ 'is-scrolled': isScrolled }">
       <div class="header-container">
         <div class="logo">
-          <router-link to="/">
+          <router-link to="/" data-track-click="header_logo">
             <img src="@/assets/logo_dark.svg" alt="Agenda Doutor" style="height: 32px;" />
           </router-link>
         </div>
 
         <nav class="desktop-nav">
-          <a href="#funcionalidades" @click.prevent="scrollToSection('funcionalidades')">Funcionalidades</a>
-          <a href="#beneficios" @click.prevent="scrollToSection('beneficios')">Benefícios</a>
-          <a href="#faq" @click.prevent="scrollToSection('faq')">FAQ</a>
-          <a href="#contato" @click.prevent="scrollToSection('footer')">Contato</a>
+          <a href="#funcionalidades" data-track-click="header_menu_funcionalidades" @click.prevent="scrollToSection('funcionalidades')">Funcionalidades</a>
+          <a href="#beneficios" data-track-click="header_menu_beneficios" @click.prevent="scrollToSection('beneficios')">Benefícios</a>
+          <a href="#faq" data-track-click="header_menu_faq" @click.prevent="scrollToSection('faq')">FAQ</a>
+          <a href="#contato" data-track-click="header_menu_contato" @click.prevent="scrollToSection('footer')">Contato</a>
         </nav>
 
         <div class="header-actions">
-          <router-link to="/login" class="btn-login">Login</router-link>
-          <a href="https://wa.me/5511921923978" target="_blank" class="btn-primary-sm">Começar agora</a>
+          <router-link to="/login" class="btn-login" data-track-click="header_login">Login</router-link>
+          <a href="https://wa.me/5511921923978" data-track-click="header_whatsapp_comecar_agora" target="_blank" class="btn-primary-sm">Começar agora</a>
         </div>
 
         <!-- Mobile Toggle -->
@@ -71,12 +71,12 @@ onUnmounted(() => {
       <!-- Mobile Menu -->
       <div v-if="isMobileMenuOpen" class="mobile-menu">
         <nav>
-          <a href="#funcionalidades" @click="toggleMobileMenu()">Funcionalidades</a>
-          <a href="#beneficios" @click="toggleMobileMenu()">Benefícios</a>
-          <a href="#faq" @click="toggleMobileMenu()">FAQ</a>
+          <a href="#funcionalidades" data-track-click="mobile_menu_funcionalidades" @click="toggleMobileMenu()">Funcionalidades</a>
+          <a href="#beneficios" data-track-click="mobile_menu_beneficios" @click="toggleMobileMenu()">Benefícios</a>
+          <a href="#faq" data-track-click="mobile_menu_faq" @click="toggleMobileMenu()">FAQ</a>
           <div class="mobile-actions-list">
-            <router-link to="/login" class="btn-login-mobile">Login</router-link>
-            <a href="https://wa.me/5511921923978" target="_blank" class="btn-primary mobile-full">Começar agora</a>
+            <router-link to="/login" class="btn-login-mobile" data-track-click="mobile_menu_login">Login</router-link>
+            <a href="https://wa.me/5511921923978" data-track-click="mobile_menu_whatsapp_comecar_agora" target="_blank" class="btn-primary mobile-full">Começar agora</a>
           </div>
         </nav>
       </div>

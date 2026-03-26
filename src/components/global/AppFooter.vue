@@ -24,23 +24,23 @@ import { Instagram, MessageCircle } from 'lucide-vue-next'
       
       <div class="footer-col links-col">
         <h4>Produto</h4>
-        <a href="/#funcionalidades">Funcionalidades</a>
-        <a href="/#beneficios">Benefícios</a>
-        <a href="/login">Área do Cliente</a>
+        <a href="/#funcionalidades" data-track-click="footer_produto_funcionalidades">Funcionalidades</a>
+        <a href="/#beneficios" data-track-click="footer_produto_beneficios">Benefícios</a>
+        <a href="/login" data-track-click="footer_produto_area_cliente">Área do Cliente</a>
       </div>
       
       <div class="footer-col links-col">
         <h4>Suporte</h4>
-        <a href="https://wa.me/5511921923978">Central de Ajuda</a>
-        <a href="https://wa.me/5511921923978">Fale Conosco</a>
-        <a href="https://wa.me/5511921923978">WhatsApp</a>
+        <a href="https://wa.me/5511921923978" data-track-click="footer_suporte_central_ajuda">Central de Ajuda</a>
+        <a href="https://wa.me/5511921923978" data-track-click="footer_suporte_fale_conosco">Fale Conosco</a>
+        <a href="https://wa.me/5511921923978" data-track-click="footer_suporte_whatsapp">WhatsApp</a>
       </div>
 
       <div class="footer-col links-col">
         <h4>Legal</h4>
-        <router-link to="/termos">Termos de Uso</router-link>
-        <router-link to="/privacidade">Privacidade</router-link>
-        <router-link to="/lgpd">LGPD</router-link>
+        <router-link to="/termos" data-track-click="footer_legal_termos">Termos de Uso</router-link>
+        <router-link to="/privacidade" data-track-click="footer_legal_privacidade">Privacidade</router-link>
+        <router-link to="/lgpd" data-track-click="footer_legal_lgpd">LGPD</router-link>
       </div>
     </div>
     
@@ -49,8 +49,8 @@ import { Instagram, MessageCircle } from 'lucide-vue-next'
         © {{ new Date().getFullYear() }} Agenda Doutor. Todos os direitos reservados...
       </div>
       <div class="social-links">
-          <a href="https://instagram.com/agendadoutor"  class="social-icon"><Instagram :size="20"/></a>
-          <a href="https://wa.me/5511921923978" target="_blank" class="social-icon"><MessageCircle :size="20"/></a>
+          <a href="https://instagram.com/agendadoutor" data-track-click="footer_social_instagram" class="social-icon"><Instagram :size="20"/></a>
+          <a href="https://wa.me/5511921923978" data-track-click="footer_social_whatsapp" target="_blank" class="social-icon"><MessageCircle :size="20"/></a>
       </div>
     </div>
   </footer>

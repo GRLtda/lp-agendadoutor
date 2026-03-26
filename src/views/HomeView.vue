@@ -182,10 +182,10 @@ function toggleFaq(index) {
             </p>
             
             <div class="cta-group-centered animate-slide-up delay-300">
-              <router-link to="/login" class="btn-primary btn-lg">
+              <router-link to="/login" class="btn-primary btn-lg" data-track-click="hero_login">
                 Entrar na Conta
               </router-link>
-              <a href="https://wa.me/5511921923978" target="_blank" class="btn-secondary btn-lg">
+              <a href="https://wa.me/5511921923978" data-track-click="hero_whatsapp_fale_com_equipe" target="_blank" class="btn-secondary btn-lg">
                  Fale com nossa equipe
               </a>
             </div>
@@ -321,7 +321,7 @@ function toggleFaq(index) {
                        <span><strong>Segurança:</strong> Dados criptografados e backup diário.</span>
                     </li>
                  </ul>
-                 <a href="https://wa.me/5511921923978" target="_blank" class="btn-secondary mt-6">
+                 <a href="https://wa.me/5511921923978" data-track-click="beneficios_whatsapp_quero_modernizar" target="_blank" class="btn-secondary mt-6">
                     Quero modernizar minha agenda <ChevronRight size="18"/>
                  </a>
               </div>
@@ -359,7 +359,7 @@ function toggleFaq(index) {
           <p class="section-subtitle">
             Tire suas dúvidas sobre como o Agenda Doutor pode ajudar sua clínica.
           </p>
-          <a href="https://wa.me/5511921923978" target="_blank" class="btn-whatsapp-contact">
+          <a href="https://wa.me/5511921923978" data-track-click="faq_whatsapp_contato" target="_blank" class="btn-whatsapp-contact">
             <MessageCircle :size="20" />
             Entrar em contato pelo WhatsApp
           </a>
