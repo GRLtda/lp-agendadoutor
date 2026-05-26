@@ -1,6 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+const CAMPAIGN_STORAGE_KEY = 'agenda_campaign_coupon'
+
+function getStoredCampaignToken() {
+    if (typeof window === 'undefined') return null
+
+    try {
+        const stored = JSON.parse(window.localStorage.getItem(CAMPAIGN_STORAGE_KEY) || 'null')
+        if (!stored?.token || !stored?.expiresAt) return null
+
+        if (new Date(stored.expiresAt).getTime() <= Date.now()) {
+            window.localStorage.removeItem(CAMPAIGN_STORAGE_KEY)
+            return null
+        }
+
+        return stored.token
+    } catch (_error) {
+        window.localStorage.removeItem(CAMPAIGN_STORAGE_KEY)
+        return null
+    }
+}
+
+function buildAppUrl(path) {
+    const appUrl = import.meta.env.VITE_APP_URL || 'http://localhost:5173'
+    const target = new URL(path, appUrl)
+    const campaignToken = getStoredCampaignToken()
+
+    if (path === '/register' && campaignToken) {
+        target.searchParams.set('campaignToken', campaignToken)
+    }
+
+    return target.toString()
+}
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -41,11 +74,17 @@ const router = createRouter({
             meta: { title: 'Avaliação - Agenda Doutor' }
         },
         {
+            path: '/c/:slug',
+            name: 'campaign',
+            component: () => import('../views/CampaignView.vue'),
+            meta: { title: 'Presente - Agenda Doutor' }
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => null,
             beforeEnter() {
-                window.location.href = `${import.meta.env.VITE_APP_URL || 'http://localhost:5173'}/login`
+                window.location.href = buildAppUrl('/login')
             }
         },
         {
@@ -53,7 +92,7 @@ const router = createRouter({
             name: 'register',
             component: () => null,
             beforeEnter() {
-                window.location.href = `${import.meta.env.VITE_APP_URL || 'http://localhost:5173'}/register`
+                window.location.href = buildAppUrl('/register')
             }
         },
         // Legacy Redirect
