@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { Menu, X } from 'lucide-vue-next'
+import AppButton from './AppButton.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -57,8 +58,10 @@ onUnmounted(() => {
         </nav>
 
         <div class="header-actions">
-          <router-link to="/login" class="btn-login" data-track-click="header_login">Login</router-link>
-          <a href="https://wa.me/5511921923978" data-track-click="header_whatsapp_comecar_agora" target="_blank" class="btn-primary-sm">Começar agora</a>
+          <AppButton to="/login" variant="ghost" size="md" data-track-click="header_login">Login</AppButton>
+          <AppButton href="https://wa.me/5511921923978" variant="primary" size="md" data-track-click="header_whatsapp_comecar_agora" target="_blank" rel="noopener noreferrer">
+            Começar agora
+          </AppButton>
         </div>
 
         <!-- Mobile Toggle -->
@@ -75,8 +78,10 @@ onUnmounted(() => {
           <a href="#beneficios" data-track-click="mobile_menu_beneficios" @click="toggleMobileMenu()">Benefícios</a>
           <a href="#faq" data-track-click="mobile_menu_faq" @click="toggleMobileMenu()">FAQ</a>
           <div class="mobile-actions-list">
-            <router-link to="/login" class="btn-login-mobile" data-track-click="mobile_menu_login">Login</router-link>
-            <a href="https://wa.me/5511921923978" data-track-click="mobile_menu_whatsapp_comecar_agora" target="_blank" class="btn-primary mobile-full">Começar agora</a>
+            <AppButton to="/login" variant="outline" size="lg" class="mobile-full" data-track-click="mobile_menu_login">Login</AppButton>
+            <AppButton href="https://wa.me/5511921923978" variant="primary" size="lg" class="mobile-full" data-track-click="mobile_menu_whatsapp_comecar_agora" target="_blank" rel="noopener noreferrer">
+              Começar agora
+            </AppButton>
           </div>
         </nav>
       </div>
@@ -125,30 +130,7 @@ onUnmounted(() => {
 .desktop-nav a { font-weight: 500; font-size: 0.95rem; color: #475569; position: relative; cursor: pointer; text-decoration: none; }
 .desktop-nav a:hover { color: var(--primary); }
 
-.header-actions { display: flex; align-items: center; gap: 1rem; }
-
-.btn-primary-sm {
-  background: var(--primary);
-  color: white;
-  padding: 0.6rem 1.25rem;
-  font-size: 0.9rem;
-  border-radius: 99px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-.btn-primary-sm:hover { background: var(--primary-dark); }
-
-.btn-login {
-  color: var(--text-main);
-  padding: 0.6rem 1.25rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-.btn-login:hover { color: var(--primary); }
+.header-actions { display: flex; align-items: center; gap: 0.75rem; }
 
 .mobile-toggle { display: none; background: none; border: none; cursor: pointer; color: #0f172a; }
 
@@ -159,24 +141,9 @@ onUnmounted(() => {
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
   display: flex; flex-direction: column; gap: 1rem;
 }
-.mobile-menu a { font-size: 1.1rem; padding: 0.5rem 0; border-bottom: 1px solid #f1f5f9; display: block; text-decoration: none; color: #1e293b; }
+.mobile-menu nav > a { font-size: 1.1rem; padding: 0.5rem 0; border-bottom: 1px solid #f1f5f9; display: block; text-decoration: none; color: #1e293b; }
 .mobile-actions-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
 .mobile-full { width: 100%; text-align: center; }
-.btn-login-mobile { text-align: center; padding: 0.8rem; background: #f8fafc; border-radius: 8px; font-weight: 600; text-decoration: none; color: #1e293b; }
-
-.btn-primary {
-  background: var(--primary);
-  color: white;
-  padding: 0.875rem 2rem;
-  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
-  border-radius: 99px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
 
 @media(max-width: 900px) {
   .desktop-nav, .header-actions { display: none; }

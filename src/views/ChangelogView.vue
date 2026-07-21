@@ -185,35 +185,6 @@ const changelog = [
 </template>
 
 <style scoped>
-@font-face {
-  font-family: 'Oakes';
-  src: url('@/assets/fonts/OakesLight.ttf') format('ttf');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Oakes';
-  src: url('@/assets/fonts/OakesRegular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Oakes';
-  src: url('@/assets/fonts/OakesMedium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Oakes';
-  src: url('@/assets/fonts/OakesSemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
 .landing-theme {
   font-family: 'Inter', sans-serif;
   --primary: #2563eb;
@@ -342,7 +313,7 @@ const changelog = [
 }
 
 .entry-title {
-  font-family: 'Oakes', sans-serif;
+  font-family: var(--fonte-titulo);
   font-size: 1.35rem;
   font-weight: 600;
   color: #0f172a;

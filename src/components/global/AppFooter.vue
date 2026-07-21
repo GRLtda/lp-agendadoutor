@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { Instagram, MessageCircle } from 'lucide-vue-next'
+import logoInsta from '@/assets/logo_insta.svg'
+import logoWhatsapp from '@/assets/logo_whatsapp.svg'
 </script>
 
 <template>
@@ -49,8 +50,12 @@ import { Instagram, MessageCircle } from 'lucide-vue-next'
         © {{ new Date().getFullYear() }} Agenda Doutor. Todos os direitos reservados...
       </div>
       <div class="social-links">
-          <a href="https://instagram.com/agendadoutor" data-track-click="footer_social_instagram" class="social-icon"><Instagram :size="20"/></a>
-          <a href="https://wa.me/5511921923978" data-track-click="footer_social_whatsapp" target="_blank" class="social-icon"><MessageCircle :size="20"/></a>
+          <a href="https://instagram.com/agendadoutor" data-track-click="footer_social_instagram" class="social-icon" aria-label="Instagram">
+            <img :src="logoInsta" alt="" class="social-icon-img" />
+          </a>
+          <a href="https://wa.me/5511921923978" data-track-click="footer_social_whatsapp" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="WhatsApp">
+            <img :src="logoWhatsapp" alt="" class="social-icon-img" />
+          </a>
       </div>
     </div>
   </footer>
@@ -194,11 +199,30 @@ import { Instagram, MessageCircle } from 'lucide-vue-next'
   gap: 1rem;
 }
 .social-icon {
-  color: #94a3b8;
-  transition: color 0.3s;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s, transform 0.3s;
 }
 .social-icon:hover {
-  color: var(--primary);
+  border-color: #bfdbfe;
+  transform: translateY(-2px);
+}
+.social-icon-img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  opacity: 0.62;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.social-icon:hover .social-icon-img {
+  opacity: 0.95;
+  transform: scale(1.03);
 }
 
 @media(max-width: 900px) {
