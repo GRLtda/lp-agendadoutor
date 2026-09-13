@@ -7,6 +7,10 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
+  ssgOptions: {
+    dirStyle: 'nested',
+    formatting: 'minify',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

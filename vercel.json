@@ -1,8 +1,42 @@
 {
+    "trailingSlash": false,
+    "redirects": [
+        {
+            "source": "/login",
+            "destination": "https://app.agendadoutor.com/login",
+            "permanent": true
+        },
+        {
+            "source": "/register",
+            "destination": "https://app.agendadoutor.com/register",
+            "permanent": true
+        },
+        {
+            "source": "/app/:path*",
+            "destination": "https://app.agendadoutor.com/:path*",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
-            "source": "/((?!assets/|.*\\..*).*)",
-            "destination": "/index.html"
+            "source": "/termos",
+            "destination": "/termos/index.html"
+        },
+        {
+            "source": "/privacidade",
+            "destination": "/privacidade/index.html"
+        },
+        {
+            "source": "/lgpd",
+            "destination": "/lgpd/index.html"
+        },
+        {
+            "source": "/atualizacao",
+            "destination": "/atualizacao/index.html"
+        },
+        {
+            "source": "/questionario",
+            "destination": "/questionario/index.html"
         }
     ],
     "headers": [
@@ -12,6 +46,15 @@
                 {
                     "key": "Cache-Control",
                     "value": "public, s-maxage=0, must-revalidate"
+                }
+            ]
+        },
+        {
+            "source": "/questionario",
+            "headers": [
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "noindex, nofollow"
                 }
             ]
         },

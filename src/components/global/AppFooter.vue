@@ -7,13 +7,13 @@ import logoWhatsapp from '@/assets/logo_whatsapp.svg'
 <template>
   <footer id="footer" class="landing-footer">
     <div class="footer-bg-logo">
-      <img src="@/assets/logo_texto.svg" alt="Agenda Doutor Background" />
+      <img src="@/assets/logo_texto.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </div>
     
     <div class="container footer-content">
       <div class="footer-col brand-col">
         <div class="logo-wrapper-footer">
-          <img src="@/assets/logo_dark.svg" alt="Agenda Doutor" class="logo-footer-img"/> 
+          <img src="@/assets/logo_dark.svg" alt="Agenda Doutor" class="logo-footer-img" loading="lazy" decoding="async" />
         </div>
         <p class="brand-tagline">Transformando a gestão em todo o Brasil.</p>
         

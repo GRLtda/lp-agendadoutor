@@ -1,6 +1,6 @@
-import { createApp } from 'vue'
+import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
-import router from './router'
+import { routes, scrollBehavior } from './router'
 import { initBehaviorAnalytics, trackRouteView } from './services/behaviorAnalytics'
 
 // Estilos
@@ -8,14 +8,31 @@ import './assets/css/normalize.css'
 import './assets/css/global.css'
 import './assets/css/custom-toast.css'
 
-const app = createApp(App)
+export const createApp = ViteSSG(
+  App,
+  {
+    routes,
+    base: import.meta.env.BASE_URL,
+    scrollBehavior,
+  },
+  ({ router }) => {
+    if (import.meta.env.SSR) return
 
-app.use(router)
+    initBehaviorAnalytics()
 
-initBehaviorAnalytics()
+    router.afterEach((to) => {
+      trackRouteView(to.fullPath)
+    })
+  },
+)
 
-router.afterEach((to) => {
-  trackRouteView(to.fullPath)
-})
-
-app.mount('#app')
+export function includedRoutes() {
+  return [
+    '/',
+    '/termos',
+    '/privacidade',
+    '/lgpd',
+    '/atualizacao',
+    '/questionario',
+  ]
+}

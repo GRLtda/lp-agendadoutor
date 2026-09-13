@@ -1,11 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
 import {
   Check,
-  Zap,
   Clock,
-  ShieldCheck,
   TrendingUp,
   MessageCircle,
   Calendar,
@@ -15,9 +12,7 @@ import {
   Smartphone,
   ChevronRight,
   UserCheck,
-  LayoutDashboard,
   Star,
-  Instagram,
   Minus,
   Plus
 } from 'lucide-vue-next'
@@ -170,15 +165,15 @@ function toggleFaq(index) {
             <!-- Top Trust Badge -->
             <div class="trust-badge-top animate-slide-up">
                 <div class="avatars-sm">
-                  <img :src="fotoMilena" alt="Milena" class="avatar-sm"/>
-                  <img :src="fotoManu" alt="Manu" class="avatar-sm"/>
-                  <img :src="fotoMedica" alt="Manu" class="avatar-sm"/>
+                  <img :src="fotoMilena" alt="Profissional que usa o Agenda Doutor" class="avatar-sm" width="20" height="20" decoding="async" />
+                  <img :src="fotoManu" alt="Profissional que usa o Agenda Doutor" class="avatar-sm" width="20" height="20" decoding="async" />
+                  <img :src="fotoMedica" alt="Profissional que usa o Agenda Doutor" class="avatar-sm" width="20" height="20" decoding="async" />
                 </div>
                 <span>Mais de <strong>100 Profissionais</strong> confiam</span>
             </div>
 
             <h1 class="hero-title animate-slide-up delay-100">
-              Organize sua agenda e <span class="text-highlight" style="white-space: nowrap;">Reduza&nbsp;Faltas</span> em um só lugar.
+              Sistema de gestão para clínicas que organiza sua agenda e <span class="text-highlight" style="white-space: nowrap;">reduz&nbsp;faltas</span>.
             </h1>
             <p class="hero-subtitle animate-slide-up delay-200">
               O sistema completo para modernizar seu atendimento. Agenda inteligente, prontuário digital e confirmação automática para você focar no que importa: o paciente.
@@ -195,7 +190,7 @@ function toggleFaq(index) {
           </div>
 
           <div class="hero-system-preview animate-slide-up delay-300">
-            <img :src="telaCalendario" alt="Prévia do calendário Agenda Doutor" class="preview-dashboard-image" />
+            <img :src="telaCalendario" alt="Tela da agenda médica online do Agenda Doutor" class="preview-dashboard-image" width="1911" height="918" fetchpriority="high" decoding="async" />
           </div>
 
         </div>
@@ -259,7 +254,7 @@ function toggleFaq(index) {
               <div class="bento-visual" :class="{'no-bg': feature.visual.startsWith('image')}">
                  <!-- Image Agenda Visual -->
                  <div v-if="feature.visual === 'image-agenda'" class="visual-image-container">
-                    <img :src="imageAgenda" alt="Agenda UI" class="bleeding-image agenda-img" />
+                    <img :src="imageAgenda" alt="Interface da agenda médica com horários e consultas" class="bleeding-image agenda-img" width="1913" height="832" loading="lazy" decoding="async" />
                     <div class="agenda-command-center" aria-hidden="true">
                       <svg class="agenda-flow-svg" viewBox="0 0 520 240" role="img">
                         <defs>
@@ -297,7 +292,7 @@ function toggleFaq(index) {
 
                  <!-- Image Prontuário Visual -->
                  <div v-if="feature.visual === 'image-prontuario'" class="visual-image-container">
-                    <img :src="imageProntuario" alt="Prontuário UI" class="bleeding-image prontuario-img" />
+                    <img :src="imageProntuario" alt="Interface do prontuário eletrônico do Agenda Doutor" class="bleeding-image prontuario-img" width="1888" height="907" loading="lazy" decoding="async" />
                  </div>
 
                  <!-- Chat Visual -->
@@ -410,7 +405,7 @@ function toggleFaq(index) {
         <div class="faq-header animate-on-scroll">
           <h2 class="section-title">
             Dúvidas Frequentes
-            <img src="@/assets/imgs/pensativo.png" alt="Emoji Pensativo" class="faq-emoji" />
+            <img src="@/assets/imgs/pensativo.png" alt="" class="faq-emoji" width="160" height="160" loading="lazy" decoding="async" />
           </h2>
           <p class="section-subtitle">
             Tire suas dúvidas sobre como o Agenda Doutor pode ajudar sua clínica.
@@ -636,9 +631,16 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
   margin-bottom: 1.5rem;
   font-weight: 500;
 }
-.avatars-sm { display: flex; }
+.avatars-sm { display: flex; align-items: center; }
 .avatar-sm {
-  width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; margin-left: -8px;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 1.5px solid white;
+  margin-left: -6px;
 }
 .avatar-sm:first-child { margin-left: 0; }
 
@@ -712,7 +714,11 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
   left: 50%;
   top: 56px;
   width: min(99vw, 1340px);
+  height: auto;
+  aspect-ratio: 1911 / 918;
+  object-fit: contain;
   max-width: none;
+  display: block;
   border-radius: 18px 18px 0 0;
   transform: translateX(-50%);
   filter: drop-shadow(0 28px 70px rgba(15, 23, 42, 0.16));
