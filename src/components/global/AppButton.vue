@@ -1,6 +1,9 @@
 <script setup>
 import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 import { Loader2 } from 'lucide-vue-next'
+
+defineOptions({ inheritAttrs: false })
 
 const props = defineProps({
   variant: {
@@ -37,11 +40,6 @@ const props = defineProps({
 
 const isRouterLink = computed(() => !!props.to)
 const isAnchor = computed(() => !!props.href && !props.to)
-const componentType = computed(() => {
-  if (isRouterLink.value) return 'router-link'
-  if (isAnchor.value) return 'a'
-  return 'button'
-})
 
 const classes = computed(() => [
   'app-button',
@@ -53,21 +51,45 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <component
-    :is="componentType"
-    :to="isRouterLink ? to : undefined"
-    :href="isAnchor ? href : undefined"
-    :type="!isRouterLink && !isAnchor ? type : undefined"
-    :disabled="!isRouterLink && !isAnchor ? disabled || loading : undefined"
-    :aria-disabled="disabled || loading ? 'true' : undefined"
+  <RouterLink
+    v-if="isRouterLink"
+    :to="props.to"
+    :aria-disabled="props.disabled || props.loading ? 'true' : undefined"
     :class="classes"
     v-bind="$attrs"
   >
-    <Loader2 v-if="loading" class="spinner" :size="size === 'sm' ? 14 : 18" />
-    <span :class="['button-content', { invisible: loading }]">
+    <Loader2 v-if="props.loading" class="spinner" :size="props.size === 'sm' ? 14 : 18" />
+    <span :class="['button-content', { invisible: props.loading }]">
       <slot />
     </span>
-  </component>
+  </RouterLink>
+
+  <a
+    v-else-if="isAnchor"
+    :href="props.href"
+    :aria-disabled="props.disabled || props.loading ? 'true' : undefined"
+    :class="classes"
+    v-bind="$attrs"
+  >
+    <Loader2 v-if="props.loading" class="spinner" :size="props.size === 'sm' ? 14 : 18" />
+    <span :class="['button-content', { invisible: props.loading }]">
+      <slot />
+    </span>
+  </a>
+
+  <button
+    v-else
+    :type="props.type"
+    :disabled="props.disabled || props.loading"
+    :aria-disabled="props.disabled || props.loading ? 'true' : undefined"
+    :class="classes"
+    v-bind="$attrs"
+  >
+    <Loader2 v-if="props.loading" class="spinner" :size="props.size === 'sm' ? 14 : 18" />
+    <span :class="['button-content', { invisible: props.loading }]">
+      <slot />
+    </span>
+  </button>
 </template>
 
 <style scoped>

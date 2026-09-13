@@ -7,13 +7,13 @@ import logoWhatsapp from '@/assets/logo_whatsapp.svg'
 <template>
   <footer id="footer" class="landing-footer">
     <div class="footer-bg-logo">
-      <img src="@/assets/logo_texto.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img src="@/assets/logo_texto.svg" alt="" aria-hidden="true" width="632" height="315" loading="lazy" decoding="async" />
     </div>
     
     <div class="container footer-content">
       <div class="footer-col brand-col">
         <div class="logo-wrapper-footer">
-          <img src="@/assets/logo_dark.svg" alt="Agenda Doutor" class="logo-footer-img" loading="lazy" decoding="async" />
+          <img src="@/assets/logo_dark.svg" alt="Agenda Doutor" class="logo-footer-img" width="79" height="32" loading="lazy" decoding="async" />
         </div>
         <p class="brand-tagline">Transformando a gestão em todo o Brasil.</p>
         
@@ -51,10 +51,10 @@ import logoWhatsapp from '@/assets/logo_whatsapp.svg'
       </div>
       <div class="social-links">
           <a href="https://instagram.com/agendadoutor" data-track-click="footer_social_instagram" class="social-icon" aria-label="Instagram">
-            <img :src="logoInsta" alt="" class="social-icon-img" />
+            <img :src="logoInsta" alt="" class="social-icon-img" width="20" height="20" />
           </a>
           <a href="https://wa.me/5511921923978" data-track-click="footer_social_whatsapp" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="WhatsApp">
-            <img :src="logoWhatsapp" alt="" class="social-icon-img" />
+            <img :src="logoWhatsapp" alt="" class="social-icon-img" width="20" height="20" />
           </a>
       </div>
     </div>
@@ -191,7 +191,7 @@ import logoWhatsapp from '@/assets/logo_whatsapp.svg'
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .social-links {

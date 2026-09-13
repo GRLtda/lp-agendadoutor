@@ -19,12 +19,14 @@ import {
 import AppHeader from '@/components/global/AppHeader.vue'
 import AppFooter from '@/components/global/AppFooter.vue'
 import AppButton from '@/components/global/AppButton.vue'
-import fotoMilena from '@/assets/imgs/foto_milena.webp'
-import fotoManu from '@/assets/imgs/foto_manu.webp'
-import fotoMedica from '@/assets/imgs/foto_medica.webp'
-import imageAgenda from '@/assets/imgs/dashboard.png'
-import imageProntuario from '@/assets/imgs/Pronturario.png'
-import telaCalendario from '@/assets/tela_calendario.png'
+import fotoMilena from '@/assets/imgs/foto_milena.webp?w=48&h=48&fit=cover&position=center&format=webp&quality=75'
+import fotoManu from '@/assets/imgs/foto_manu.webp?w=48&h=48&fit=cover&position=center&format=webp&quality=75'
+import fotoMedica from '@/assets/imgs/foto_medica.webp?w=48&h=48&fit=cover&position=center&format=webp&quality=75'
+import imageAgenda from '@/assets/imgs/dashboard.png?w=1000&format=webp&quality=82'
+import imageProntuario from '@/assets/imgs/Pronturario.png?w=1000&format=webp&quality=82'
+import telaCalendarioDesktop from '@/assets/tela_calendario.png?w=1340&format=webp&quality=82'
+import telaCalendarioMobile from '@/assets/tela_calendario.png?w=960&format=webp&quality=82'
+import faqEmoji from '@/assets/imgs/pensativo.png?w=64&h=64&fit=contain&format=webp&quality=82'
 import logoWhatsapp from '@/assets/logo_whatsapp.svg'
 
 onMounted(() => {
@@ -172,7 +174,7 @@ function toggleFaq(index) {
                 <span>Mais de <strong>100 Profissionais</strong> confiam</span>
             </div>
 
-            <h1 class="hero-title animate-slide-up delay-100">
+            <h1 class="hero-title">
               Sistema de gestão para clínicas que organiza sua agenda e <span class="text-highlight" style="white-space: nowrap;">reduz&nbsp;faltas</span>.
             </h1>
             <p class="hero-subtitle animate-slide-up delay-200">
@@ -190,7 +192,10 @@ function toggleFaq(index) {
           </div>
 
           <div class="hero-system-preview animate-slide-up delay-300">
-            <img :src="telaCalendario" alt="Tela da agenda médica online do Agenda Doutor" class="preview-dashboard-image" width="1911" height="918" fetchpriority="high" decoding="async" />
+            <picture>
+              <source media="(max-width: 900px)" :srcset="telaCalendarioMobile" />
+              <img :src="telaCalendarioDesktop" alt="Tela da agenda médica online do Agenda Doutor" class="preview-dashboard-image" width="1340" height="644" fetchpriority="high" decoding="async" />
+            </picture>
           </div>
 
         </div>
@@ -405,13 +410,13 @@ function toggleFaq(index) {
         <div class="faq-header animate-on-scroll">
           <h2 class="section-title">
             Dúvidas Frequentes
-            <img src="@/assets/imgs/pensativo.png" alt="" class="faq-emoji" width="160" height="160" loading="lazy" decoding="async" />
+            <img :src="faqEmoji" alt="" class="faq-emoji" width="48" height="48" loading="lazy" decoding="async" />
           </h2>
           <p class="section-subtitle">
             Tire suas dúvidas sobre como o Agenda Doutor pode ajudar sua clínica.
           </p>
           <a href="https://wa.me/5511921923978" data-track-click="faq_whatsapp_contato" target="_blank" class="btn-whatsapp-contact">
-            <img :src="logoWhatsapp" alt="" class="whatsapp-contact-icon" />
+            <img :src="logoWhatsapp" alt="" class="whatsapp-contact-icon" width="24" height="24" />
             Entrar em contato pelo WhatsApp
           </a>
         </div>

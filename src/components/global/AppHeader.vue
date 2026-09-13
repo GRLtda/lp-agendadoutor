@@ -46,7 +46,7 @@ onUnmounted(() => {
       <div class="header-container">
         <div class="logo">
           <router-link to="/" data-track-click="header_logo">
-            <img src="@/assets/logo_dark.svg" alt="Agenda Doutor" style="height: 32px;" />
+            <img src="@/assets/logo_dark.svg" alt="Agenda Doutor" width="79" height="32" fetchpriority="high" />
           </router-link>
         </div>
 
@@ -65,14 +65,21 @@ onUnmounted(() => {
         </div>
 
         <!-- Mobile Toggle -->
-        <button class="mobile-toggle" @click="toggleMobileMenu">
+        <button
+          class="mobile-toggle"
+          type="button"
+          :aria-label="isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
+          :aria-expanded="isMobileMenuOpen"
+          aria-controls="mobile-navigation"
+          @click="toggleMobileMenu"
+        >
           <Menu v-if="!isMobileMenuOpen" />
           <X v-else />
         </button>
       </div>
 
       <!-- Mobile Menu -->
-      <div v-if="isMobileMenuOpen" class="mobile-menu">
+      <div v-if="isMobileMenuOpen" id="mobile-navigation" class="mobile-menu">
         <nav>
           <a href="#funcionalidades" data-track-click="mobile_menu_funcionalidades" @click="toggleMobileMenu()">Funcionalidades</a>
           <a href="#beneficios" data-track-click="mobile_menu_beneficios" @click="toggleMobileMenu()">Benefícios</a>

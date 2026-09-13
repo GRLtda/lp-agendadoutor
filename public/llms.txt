@@ -1,0 +1,16 @@
+# Agenda Doutor
+
+> Sistema de gestão para clínicas e consultórios com agenda médica, prontuário eletrônico, gestão financeira, anamnese online e confirmação de consultas pelo WhatsApp.
+
+## Páginas principais
+
+- [Página inicial](https://www.agendadoutor.com/): visão geral, funcionalidades, benefícios e dúvidas frequentes.
+- [Novidades e atualizações](https://www.agendadoutor.com/atualizacao): histórico de melhorias da plataforma.
+- [Termos de uso](https://www.agendadoutor.com/termos): condições de utilização do serviço.
+- [Política de privacidade](https://www.agendadoutor.com/privacidade): informações sobre coleta, uso e proteção de dados.
+- [LGPD](https://www.agendadoutor.com/lgpd): práticas relacionadas à Lei Geral de Proteção de Dados.
+
+## Contato
+
+- [WhatsApp](https://wa.me/5511921923978): atendimento comercial e suporte.
+- [Instagram](https://instagram.com/agendadoutor): perfil oficial do Agenda Doutor.
