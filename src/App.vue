@@ -4,7 +4,7 @@ import { useHead } from '@unhead/vue'
 import { RouterView, useRoute } from 'vue-router'
 
 const SITE_URL = 'https://www.agendadoutor.com'
-const SOCIAL_IMAGE_URL = `${SITE_URL}/og-image.png`
+const SOCIAL_IMAGE_URL = `${SITE_URL}/logo_brand.png`
 const route = useRoute()
 
 const organizationSchema = {
@@ -74,15 +74,17 @@ const head = computed(() => {
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
       { property: 'og:image', content: SOCIAL_IMAGE_URL },
-      { property: 'og:image:width', content: '1913' },
-      { property: 'og:image:height', content: '832' },
-      { property: 'og:image:alt', content: 'Agenda Doutor — sistema para clínicas e consultórios' },
-      { name: 'twitter:card', content: 'summary_large_image' },
+      { property: 'og:image:secure_url', content: SOCIAL_IMAGE_URL },
+      { property: 'og:image:type', content: 'image/png' },
+      { property: 'og:image:width', content: '512' },
+      { property: 'og:image:height', content: '512' },
+      { property: 'og:image:alt', content: 'Logo do Agenda Doutor' },
+      { name: 'twitter:card', content: 'summary' },
       { name: 'twitter:url', content: canonicalUrl },
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },
       { name: 'twitter:image', content: SOCIAL_IMAGE_URL },
-      { name: 'twitter:image:alt', content: 'Agenda Doutor — sistema para clínicas e consultórios' },
+      { name: 'twitter:image:alt', content: 'Logo do Agenda Doutor' },
     ],
     link: isIndexable ? [{ rel: 'canonical', href: canonicalUrl }] : [],
     script: route.path === '/'

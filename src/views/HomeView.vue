@@ -24,8 +24,8 @@ import fotoManu from '@/assets/imgs/foto_manu.webp?w=48&h=48&fit=cover&position=
 import fotoMedica from '@/assets/imgs/foto_medica.webp?w=48&h=48&fit=cover&position=center&format=webp&quality=75'
 import imageAgenda from '@/assets/imgs/dashboard.png?w=1000&format=webp&quality=82'
 import imageProntuario from '@/assets/imgs/Pronturario.png?w=1000&format=webp&quality=82'
-import telaCalendarioDesktop from '@/assets/tela_calendario.png?w=1340&format=webp&quality=82'
-import telaCalendarioMobile from '@/assets/tela_calendario.png?w=960&format=webp&quality=82'
+import telaCalendarioDesktop from '@/assets/tela_calendario.png?w=1911&format=webp&quality=95'
+import telaCalendarioMobile from '@/assets/tela_calendario.png?w=1440&format=webp&quality=92'
 import faqEmoji from '@/assets/imgs/pensativo.png?w=64&h=64&fit=contain&format=webp&quality=82'
 import logoWhatsapp from '@/assets/logo_whatsapp.svg'
 
