@@ -59,7 +59,7 @@ onUnmounted(() => {
 
         <div class="header-actions">
           <AppButton to="/login" variant="ghost" size="md" data-track-click="header_login">Login</AppButton>
-          <AppButton href="https://wa.me/5511921923978" variant="primary" size="md" data-track-click="header_whatsapp_comecar_agora" target="_blank" rel="noopener noreferrer">
+          <AppButton to="/register" variant="primary" size="md" data-track-click="header_register_comecar_agora">
             Começar agora
           </AppButton>
         </div>
@@ -86,7 +86,7 @@ onUnmounted(() => {
           <a href="#faq" data-track-click="mobile_menu_faq" @click="toggleMobileMenu()">FAQ</a>
           <div class="mobile-actions-list">
             <AppButton to="/login" variant="outline" size="lg" class="mobile-full" data-track-click="mobile_menu_login">Login</AppButton>
-            <AppButton href="https://wa.me/5511921923978" variant="primary" size="lg" class="mobile-full" data-track-click="mobile_menu_whatsapp_comecar_agora" target="_blank" rel="noopener noreferrer">
+            <AppButton to="/register" variant="primary" size="lg" class="mobile-full" data-track-click="mobile_menu_register_comecar_agora">
               Começar agora
             </AppButton>
           </div>
