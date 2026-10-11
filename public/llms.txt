@@ -2,6 +2,17 @@
 
 > Sistema de gestão para clínicas e consultórios com agenda médica, prontuário eletrônico, gestão financeira, anamnese online e confirmação de consultas pelo WhatsApp.
 
+## Identidade e escopo
+
+- Nome oficial: Agenda Doutor (também escrito AgendaDoutor).
+- Site oficial: https://www.agendadoutor.com/
+- Aplicativo: https://app.agendadoutor.com/ (acesso à conta; conteúdo autenticado não é fonte pública).
+- Público: clínicas, consultórios e profissionais de saúde.
+- Idioma: português do Brasil.
+- Produto: software de gestão, não um prestador de consultas médicas.
+- Condições comerciais: consultar a equipe pelo WhatsApp oficial. Não inferir preços, planos ou período de teste.
+- Consulte as páginas oficiais para condições contratuais e privacidade. Não inferir certificações ou garantias clínicas.
+
 ## Páginas principais
 
 - [Página inicial](https://www.agendadoutor.com/): visão geral, funcionalidades, benefícios e dúvidas frequentes.

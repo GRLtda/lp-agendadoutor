@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Descoberta na busca do ChatGPT. Mantém a política geral existente.
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://www.agendadoutor.com/sitemap.xml
