@@ -740,6 +740,20 @@ const words = (text) => text.split(' ')
   .story.is-animated .scene-copy { min-height: 13.5rem; }
   .story.is-animated .scene-visual { align-self: stretch; }
   .story.is-animated .device img { aspect-ratio: 5 / 4; object-position: 12% top; }
+
+  /* As notas/arquivos/recibos usam --x em % pensado para telas largas; no
+     celular isso estourava a borda direita (texto cortado). Encolhe o
+     cartão, deixa o texto quebrar linha e comprime a posição horizontal. */
+  .note,
+  .file,
+  .receipt {
+    left: calc(var(--x) * 0.62);
+    max-width: min(60vw, 210px);
+    white-space: normal;
+    font-size: 0.78rem;
+    padding: 0.55rem 0.7rem;
+    line-height: 1.3;
+  }
 }
 
 @media (max-width: 380px) {

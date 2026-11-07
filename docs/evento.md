@@ -49,8 +49,17 @@ verde.
 O movimento de scroll fica em `src/composables/useEventMotion.js`. GSAP e
 ScrollTrigger são importados sob demanda depois da montagem, em pedaços
 separados. `ScrollTrigger.config({ ignoreMobileResize: true })` evita saltos com a
-barra de endereço do celular. No celular, as cenas usam `100svh`, título em cima e
-interface embaixo, com espaço reservado para o CTA fixo.
+barra de endereço do celular. No celular (`max-width: 899px`),
+`ScrollTrigger.normalizeScroll(true)` troca o scroll por toque por um
+equivalente sintético e consistente, evitando a "paradinha" que o momentum
+nativo causava nas cenas com pin; é desligado (`normalizeScroll(false)`) ao
+desmontar. No celular, as cenas usam `100svh`, título em cima e interface
+embaixo, com espaço reservado para o CTA fixo.
+
+Os cartões soltos das cenas 2 a 4 (`EventStory.vue`: notas, arquivos, recibos)
+usam `left`/`top` em `%` pensados para telas largas. No celular, uma regra
+em `@media (max-width: 899px)` reduz `left` (`calc(var(--x) * 0.62)`), limita
+`max-width` e deixa o texto quebrar linha, para não vazar pela borda direita.
 
 **Movimento reduzido** (`prefers-reduced-motion`): não há envelope nem pin. O
 ingresso aparece pronto e cada cena mostra direto a solução.

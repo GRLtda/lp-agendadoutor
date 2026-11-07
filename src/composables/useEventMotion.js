@@ -6,24 +6,32 @@ import { onBeforeUnmount, onMounted } from 'vue'
 export function useEventMotion(rootRef) {
   let ctx = null
   let onLoad = null
+  let ScrollTrigger = null
 
   onMounted(async () => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+    const [{ gsap }, { ScrollTrigger: ST }] = await Promise.all([
       import('gsap'),
       import('gsap/ScrollTrigger'),
     ])
+    ScrollTrigger = ST
     gsap.registerPlugin(ScrollTrigger)
     // Evita recalcular tudo quando a barra de endereço do celular aparece/some.
     ScrollTrigger.config({ ignoreMobileResize: true })
+
+    const isMobile = window.matchMedia('(max-width: 899px)').matches
+    // No celular, o scroll por toque "engasga" nas cenas com pin por causa do
+    // momentum nativo brigando com o recálculo do pin a cada frame.
+    // normalizeScroll troca o scroll do touch por um equivalente sintético e
+    // consistente, eliminando essa paradinha.
+    if (isMobile) ScrollTrigger.normalizeScroll(true)
 
     const root = rootRef.value
     if (!root) return
     root.querySelector('[data-story]')?.classList.add('is-animated')
 
     ctx = gsap.context(() => {
-      const isMobile = window.matchMedia('(max-width: 899px)').matches
 
       // Abertura: o ingresso recua e perde destaque quando a história começa.
       gsap.to('[data-intro-stage]', {
@@ -83,6 +91,7 @@ export function useEventMotion(rootRef) {
   onBeforeUnmount(() => {
     if (onLoad) window.removeEventListener('load', onLoad)
     ctx?.revert()
+    ScrollTrigger?.normalizeScroll(false)
   })
 }
 
