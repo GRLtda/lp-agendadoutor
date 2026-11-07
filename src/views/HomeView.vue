@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { productDescription, productQuestions } from '@/seo/product'
 import {
   Check,
   Clock,
@@ -100,6 +101,7 @@ const stats = [
 ]
 
 const faqItems = ref([
+  ...productQuestions.map((item) => ({ ...item, open: false })),
   {
     question: 'Posso acessar de qualquer lugar?',
     answer:
@@ -178,7 +180,7 @@ function toggleFaq(index) {
               Sistema de gestão para clínicas que organiza sua agenda e <span class="text-highlight" style="white-space: nowrap;">reduz&nbsp;faltas</span>.
             </h1>
             <p class="hero-subtitle animate-slide-up delay-200">
-              O sistema completo para modernizar seu atendimento. Agenda inteligente, prontuário digital e confirmação automática para você focar no que importa: o paciente.
+              {{ productDescription }}
             </p>
             
             <div class="cta-group-centered animate-slide-up delay-300">

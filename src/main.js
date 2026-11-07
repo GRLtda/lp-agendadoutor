@@ -34,5 +34,7 @@ export function includedRoutes() {
     '/lgpd',
     '/atualizacao',
     '/questionario',
+    '/suporte',
+    '/evento',
   ]
 }

@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { productDescription, productQuestions } from './seo/product'
 import { useHead } from '@unhead/vue'
 import { RouterView, useRoute } from 'vue-router'
 
@@ -41,7 +42,9 @@ const organizationSchema = {
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       inLanguage: 'pt-BR',
-      description: 'Sistema de gestão para clínicas e consultórios com agenda, prontuário eletrônico, financeiro e confirmações pelo WhatsApp.',
+      description: productDescription,
+      alternateName: 'AgendaDoutor',
+      audience: { '@type': 'Audience', audienceType: 'Clínicas, consultórios e profissionais de saúde' },
       provider: { '@id': `${SITE_URL}/#organization` },
       featureList: [
         'Agenda médica online',
@@ -57,9 +60,31 @@ const organizationSchema = {
 const head = computed(() => {
   const title = route.meta.title || 'Agenda Doutor'
   const description = route.meta.description || 'Sistema de gestão para clínicas e consultórios.'
-  const robots = route.meta.robots || 'index, follow'
+  const robots = route.meta.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
   const isIndexable = !robots.includes('noindex')
   const canonicalUrl = new URL(route.path || '/', SITE_URL).href
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      ...organizationSchema['@graph'],
+      {
+        '@type': 'WebPage', '@id': canonicalUrl + '#webpage',
+        url: canonicalUrl, name: title, description, inLanguage: 'pt-BR',
+        isPartOf: { '@id': SITE_URL + '/#website' },
+        about: { '@id': SITE_URL + '/#software' },
+        publisher: { '@id': SITE_URL + '/#organization' },
+      },
+      ...(route.path === '/' ? [{
+        '@type': 'FAQPage', '@id': SITE_URL + '/#faq',
+        isPartOf: { '@id': SITE_URL + '/#webpage' },
+        mainEntity: productQuestions.map(({ question, answer }) => ({
+          '@type': 'Question', name: question,
+          acceptedAnswer: { '@type': 'Answer', text: answer },
+        })),
+      }] : []),
+    ],
+  }
 
   return {
     htmlAttrs: { lang: 'pt-BR' },
@@ -87,8 +112,8 @@ const head = computed(() => {
       { name: 'twitter:image:alt', content: 'Logo do Agenda Doutor' },
     ],
     link: isIndexable ? [{ rel: 'canonical', href: canonicalUrl }] : [],
-    script: route.path === '/'
-      ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(organizationSchema) }]
+    script: isIndexable
+      ? [{ key: 'public-structured-data', type: 'application/ld+json', innerHTML: JSON.stringify(schema).replace(/</g, '\u003c') }]
       : [],
   }
 })

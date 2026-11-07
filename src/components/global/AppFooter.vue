@@ -17,10 +17,16 @@ import logoWhatsapp from '@/assets/logo_whatsapp.svg'
         </div>
         <p class="brand-tagline">Transformando a gestão em todo o Brasil.</p>
         
-        <div class="system-status">
-          <span class="status-dot"></span>
-          <span>Todos os sistemas operacionais</span>
-        </div>
+        <iframe
+          class="system-status"
+          src="https://status.agendadoutor.com/badge?theme=light"
+          title="Status dos serviços Agenda Doutor"
+          width="250"
+          height="30"
+          frameborder="0"
+          scrolling="no"
+          style="color-scheme: normal"
+        ></iframe>
       </div>
       
       <div class="footer-col links-col">
@@ -134,25 +140,11 @@ import logoWhatsapp from '@/assets/logo_whatsapp.svg'
 }
 
 .system-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 99px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #0f172a;
-  width: fit-content;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #22c55e;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+  display: block;
+  width: 250px;
+  max-width: 100%;
+  height: 30px;
+  border: 0;
 }
 
 .footer-col h4 {

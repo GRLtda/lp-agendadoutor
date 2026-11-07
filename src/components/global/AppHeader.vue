@@ -4,6 +4,12 @@ import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { Menu, X } from 'lucide-vue-next'
 import AppButton from './AppButton.vue'
 
+// Destino externo opcional do "Começar agora" (ex.: cadastro com campanha na LP /evento).
+// Sem valor, mantém a rota interna /register.
+const props = defineProps({
+  registerHref: { type: String, default: null },
+})
+
 const router = useRouter()
 const route = useRoute()
 const isMobileMenuOpen = ref(false)
@@ -59,7 +65,7 @@ onUnmounted(() => {
 
         <div class="header-actions">
           <AppButton to="/login" variant="ghost" size="md" data-track-click="header_login">Login</AppButton>
-          <AppButton to="/register" variant="primary" size="md" data-track-click="header_register_comecar_agora">
+          <AppButton :to="props.registerHref ? null : '/register'" :href="props.registerHref" variant="primary" size="md" data-track-click="header_register_comecar_agora">
             Começar agora
           </AppButton>
         </div>
@@ -86,7 +92,7 @@ onUnmounted(() => {
           <a href="#faq" data-track-click="mobile_menu_faq" @click="toggleMobileMenu()">FAQ</a>
           <div class="mobile-actions-list">
             <AppButton to="/login" variant="outline" size="lg" class="mobile-full" data-track-click="mobile_menu_login">Login</AppButton>
-            <AppButton to="/register" variant="primary" size="lg" class="mobile-full" data-track-click="mobile_menu_register_comecar_agora">
+            <AppButton :to="props.registerHref ? null : '/register'" :href="props.registerHref" variant="primary" size="lg" class="mobile-full" data-track-click="mobile_menu_register_comecar_agora">
               Começar agora
             </AppButton>
           </div>

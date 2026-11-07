@@ -2,6 +2,16 @@
     "trailingSlash": false,
     "redirects": [
         {
+            "source": "/evento",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/suporte",
+            "destination": "https://web.whatsapp.com/",
+            "permanent": false
+        },
+        {
             "source": "/login",
             "destination": "https://app.agendadoutor.com/login",
             "permanent": true
@@ -37,6 +47,10 @@
         {
             "source": "/questionario",
             "destination": "/questionario/index.html"
+        },
+        {
+            "source": "/evento/:code",
+            "destination": "/evento/index.html"
         }
     ],
     "headers": [
@@ -51,6 +65,15 @@
         },
         {
             "source": "/questionario",
+            "headers": [
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "noindex, nofollow"
+                }
+            ]
+        },
+        {
+            "source": "/evento(/.*)?",
             "headers": [
                 {
                     "key": "X-Robots-Tag",

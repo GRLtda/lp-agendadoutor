@@ -67,6 +67,37 @@ export const routes = [
         },
     },
     {
+        path: '/evento/:code?',
+        name: 'event',
+        component: () => import('../views/EventView.vue'),
+        // Sem código não há campanha: volta para a home. O pré-render (SSR)
+        // continua gerando /evento como casca para /evento/<codigo>.
+        beforeEnter(to) {
+            if (import.meta.env.SSR) return true
+            return to.params.code ? true : { path: '/', replace: true }
+        },
+        meta: {
+            title: 'Seu ingresso: 1 mês grátis | Agenda Doutor',
+            description: 'Oferta exclusiva para participantes do evento: ative 1 mês grátis do Agenda Doutor. Nada é cobrado hoje.',
+            robots: 'noindex, nofollow',
+        },
+    },
+    {
+        path: '/suporte',
+        name: 'support',
+        component: { render: () => null },
+        meta: {
+            title: 'Suporte | Agenda Doutor',
+            description: 'Acesse o WhatsApp Web.',
+            robots: 'noindex, nofollow',
+        },
+        beforeEnter() {
+            if (import.meta.env.SSR) return true
+            window.location.replace('https://web.whatsapp.com/')
+            return false
+        },
+    },
+    {
         path: '/login',
         name: 'login',
         component: () => null,

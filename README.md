@@ -16,4 +16,12 @@ Esta landing esta integrada com o Microsoft Clarity para gerar:
 4. Defina `VITE_ANALYTICS_ALLOWED_HOSTS` com os dominios de producao.
 5. Mantenha `VITE_ANALYTICS_ALLOW_BOTS=false` para ignorar bots/headless.
 
-Sem `VITE_CLARITY_PROJECT_ID`, o rastreamento fica desativado.
+Sem `VITE_CLARITY_PROJECT_ID`, o rastreamento fica desativado. Desenvolvimento e testes tambem desativam o Clarity, mesmo com ID configurado. Consulte [controle por ambiente](docs/analytics.md).
+
+## SEO e descoberta por IA
+
+Consulte [SEO e descoberta por plataformas de IA](docs/seo-geo.md) para arquitetura, limites e validação após publicação.
+
+## Landing page do evento
+
+Consulte [Landing page do evento (`/evento/<código>`)](docs/evento.md) para a experiência do ingresso, cenas com scroll, contador, contrato `?campanha=<código>`, analytics e verificação.

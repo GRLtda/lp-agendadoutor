@@ -1,3 +1,4 @@
+const IS_DEVELOPMENT = import.meta.env.DEV || ['dev', 'development', 'test'].includes(import.meta.env.MODE)
 const CLARITY_PROJECT_ID = (import.meta.env.VITE_CLARITY_PROJECT_ID || '').trim()
 const TRACKED_CLICK_SELECTOR = '[data-track-click]'
 const ALLOWED_HOSTS = (import.meta.env.VITE_ANALYTICS_ALLOWED_HOSTS || '')
@@ -73,7 +74,7 @@ function ensureClarityQueue() {
 }
 
 function sendClarityEvent(eventName) {
-  if (!isBrowser() || typeof window.clarity !== 'function') return
+  if (IS_DEVELOPMENT || !isBrowser() || typeof window.clarity !== 'function') return
   window.clarity('event', sanitizeEventName(eventName))
 }
 
@@ -90,14 +91,14 @@ function handleTrackedClick(event) {
 }
 
 function attachTrackedClickEvents() {
-  if (!isBrowser() || clickTrackingAttached) return
+  if (IS_DEVELOPMENT || !isBrowser() || clickTrackingAttached) return
 
   document.addEventListener('click', handleTrackedClick, { capture: true })
   clickTrackingAttached = true
 }
 
 export function initBehaviorAnalytics() {
-  if (!isBrowser() || analyticsInitialized || !CLARITY_PROJECT_ID || shouldSkipAnalytics()) return false
+  if (IS_DEVELOPMENT || !isBrowser() || analyticsInitialized || !CLARITY_PROJECT_ID || shouldSkipAnalytics()) return false
 
   ensureClarityQueue()
 
