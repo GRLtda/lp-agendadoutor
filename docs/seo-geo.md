@@ -5,7 +5,7 @@ A fonte pública de identificação do Agenda Doutor é a landing page em https:
 ## Implementação
 
 - Vite SSG gera HTML com conteúdo e metadados antes da execução de JavaScript pelo visitante.
-- `src/seo/product.js` compartilha a descrição do produto e perguntas objetivas com a home e o JSON-LD, evitando divergências.
+- `src/seo/product.js` compartilha a descrição do produto e **todas** as perguntas do FAQ da home com o JSON-LD, evitando divergências. O FAQ visível e o `FAQPage` têm as mesmas 10 perguntas; links internos de uma resposta (campo `link`) aparecem só na interface. Estrutura da home: [home.md](home.md).
 - `src/App.vue` publica Organization, WebSite, SoftwareApplication e WebPage nas páginas indexáveis. A home também publica FAQPage com as perguntas compartilhadas e acessíveis na interface. Não há preços, avaliações ou certificações adicionados ao schema.
 - Cada rota pública tem título, descrição e canonical sem parâmetros de rastreamento. Páginas noindex não recebem canonical nem JSON-LD.
 - `public/robots.txt` permite rastreamento público e explicita OAI-SearchBot. A política geral existente para outros robôs, incluindo treinamento, permanece permitida. Robots não substitui autenticação.
@@ -14,7 +14,7 @@ A fonte pública de identificação do Agenda Doutor é a landing page em https:
 
 ## Validação e publicação
 
-Execute `npm run build` e confira em `dist/index.html` a descrição, canonical e JSON-LD. Verifique também as páginas legais e de atualizações. `dist/questionario/index.html` deve manter noindex e não conter JSON-LD. As perguntas do FAQ devem coincidir com as respostas estruturadas.
+Execute `npm run build` e confira em `dist/index.html` a descrição, canonical e JSON-LD. Verifique também as páginas legais e de atualizações. `dist/questionario/index.html` deve manter noindex e não conter JSON-LD. As perguntas do FAQ devem coincidir com as respostas estruturadas (10 botões `.faq-q` e 10 `Question`). A home tem um único `h1`; as telas demonstrativas das funcionalidades são criadas só no cliente, mas o texto de cada capítulo está no HTML gerado.
 
 Depois do deploy, confirme HTTP 200 para home, sitemap, robots e llms.txt e ausência de bloqueios do CDN/WAF para robôs de busca. Envie o sitemap ao Google Search Console e ao Bing Webmaster Tools com a conta proprietária. Use o Rich Results Test para validar a sintaxe; FAQPage não garante resultado enriquecido para sites de software. Monitore indexação, acessos de robôs e referências ao domínio nas plataformas. A publicação e esses cadastros externos não são executados pelo build local.
 

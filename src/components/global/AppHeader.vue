@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { Menu, X } from 'lucide-vue-next'
 import AppButton from './AppButton.vue'
@@ -8,12 +8,20 @@ import AppButton from './AppButton.vue'
 // Sem valor, mantém a rota interna /register.
 const props = defineProps({
   registerHref: { type: String, default: null },
+  // Esconde o header (ex.: enquanto a seção escura da home ocupa o topo).
+  // Ao rolar para cima ele reaparece; ao voltar a descer, some de novo.
+  // Com o menu do celular aberto, ele continua visível.
+  hidden: { type: Boolean, default: false },
 })
 
 const router = useRouter()
 const route = useRoute()
 const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
+// Rolagem para cima revela o header mesmo quando props.hidden está ativo.
+const isPeeking = ref(false)
+let lastScrollY = 0
+const isHidden = computed(() => props.hidden && !isPeeking.value && !isMobileMenuOpen.value)
 
 function toggleMobileMenu() {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
@@ -21,7 +29,13 @@ function toggleMobileMenu() {
 }
 
 function handleScroll() {
-  isScrolled.value = window.scrollY > 20
+  const y = window.scrollY
+  isScrolled.value = y > 20
+  const delta = y - lastScrollY
+  // Pequena tolerância para não piscar com variações mínimas (trackpad, barra do celular).
+  if (delta < -6) isPeeking.value = true
+  else if (delta > 6) isPeeking.value = false
+  if (Math.abs(delta) > 6) lastScrollY = y
 }
 
 function scrollToSection(id) {
@@ -39,7 +53,8 @@ function scrollToSection(id) {
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
+  lastScrollY = window.scrollY
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
@@ -48,7 +63,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="landing-header" :class="{ 'is-scrolled': isScrolled }">
+  <header
+    class="landing-header"
+    :class="{ 'is-scrolled': isScrolled, 'is-hidden': isHidden }"
+    :inert="isHidden"
+  >
       <div class="header-container">
         <div class="logo">
           <router-link to="/" data-track-click="header_logo">
@@ -113,6 +132,11 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.1); 
   backdrop-filter: blur(0px);
+}
+.landing-header.is-hidden {
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
 }
 .landing-header.is-scrolled {
   background: rgba(255, 255, 255, 0.9);

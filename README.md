@@ -25,3 +25,7 @@ Consulte [SEO e descoberta por plataformas de IA](docs/seo-geo.md) para arquitet
 ## Landing page do evento
 
 Consulte [Landing page do evento (`/evento/<código>`)](docs/evento.md) para a experiência do ingresso, cenas com scroll, contador, contrato `?campanha=<código>`, analytics e verificação.
+
+## Página inicial
+
+Consulte [Home da landing page](docs/home.md) para a narrativa com scroll, seções, movimento (GSAP sob demanda e movimento reduzido), fontes dos textos do FAQ, CTAs, analytics e verificação.

@@ -20,6 +20,12 @@ Os cliques desses botões são identificados por `header_register_comecar_agora`
 
 Para verificar, abra a página em desktop e mobile, acione **Começar agora** e confira se o destino final é a tela de cadastro do aplicativo.
 
+## CTAs da home
+
+Na página inicial, o CTA principal da abertura e do fechamento é **Começar agora** (`/register`), com **Fale com nossa equipe** (WhatsApp) ao lado. **Entrar na conta** (`/login`) fica como link abaixo dos botões da abertura. No celular, um CTA fixo com **Começar agora** e WhatsApp aparece fora da abertura, do fechamento e do rodapé. Lista completa de destinos e identificadores: [home.md](home.md#ctas-e-analytics).
+
+O `AppHeader` aceita a prop `hidden`. Na home, ela fica ativa enquanto a seção escura das funcionalidades cobre o topo: o header sobe e fica inerte, reaparece quando a pessoa rola para cima e some de novo ao descer. Com o menu do celular aberto, o header continua visível. Nas outras páginas a prop não é usada.
+
 ## Rota de suporte
 
 `/suporte` redireciona para `https://web.whatsapp.com/`, sem número de telefone

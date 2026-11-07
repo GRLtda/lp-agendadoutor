@@ -5,3 +5,5 @@ A configuracao esta no [README](../README.md#configuracao). O modulo src/service
 Nos demais ambientes, exige VITE_CLARITY_PROJECT_ID e preserva os filtros de dominio e bots existentes.
 
 Validacao: em npm run dev, conferir ausencia de script e requisicoes clarity.ms ao navegar e clicar; em producao com ID, dominio permitido e navegador comum, conferir carregamento e eventos.
+
+Identificadores de clique da home (`data-track-click`): ver [home.md](home.md#ctas-e-analytics).

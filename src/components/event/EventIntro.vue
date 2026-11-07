@@ -55,12 +55,46 @@ onBeforeUnmount(() => {
     <div class="intro-grid" aria-hidden="true"></div>
 
     <div ref="stage" class="intro-stage" data-intro-stage>
-      <!-- Envelope (fundo, bolso e aba) -->
+      <!-- Envelope (fundo com forro, bolso e aba). Desenho em SVG com a mesma
+           proporção do envelope (146 × 100), então as curvas não distorcem. -->
       <div class="envelope" aria-hidden="true">
-        <div class="env-back"></div>
-        <div class="env-front"></div>
-        <div class="env-flap-wrap"><div class="env-flap"></div></div>
-        <div class="env-seal"><img :src="logoBrand" alt="" width="18" height="31" /></div>
+        <div class="env-back"><span class="env-liner"></span></div>
+        <div class="env-front">
+          <svg viewBox="0 0 146 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="env-side" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#eef3fd" />
+              </linearGradient>
+              <linearGradient id="env-bottom" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#fbfcff" />
+                <stop offset="100%" stop-color="#f1f5fe" />
+              </linearGradient>
+              <filter id="env-fold" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="-0.6" stdDeviation="0.9" flood-color="#1c2035" flood-opacity="0.08" />
+              </filter>
+            </defs>
+            <path class="env-side" d="M0 3 L62 51 Q73 60 62 67 L0 100 Z" fill="url(#env-side)" filter="url(#env-fold)" />
+            <path class="env-side" d="M146 3 L84 51 Q73 60 84 67 L146 100 Z" fill="url(#env-side)" filter="url(#env-fold)" />
+            <path class="env-bottom" d="M0 100 L59 64 Q73 55 87 64 L146 100 Z" fill="url(#env-bottom)" filter="url(#env-fold)" />
+          </svg>
+        </div>
+        <div class="env-flap-wrap">
+          <svg class="env-flap" viewBox="0 0 146 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="env-flap" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#0057ff" />
+                <stop offset="100%" stop-color="#1b69ff" />
+              </linearGradient>
+            </defs>
+            <path d="M0 11 Q0 0 11 0 L135 0 Q146 0 146 11 L85 57 Q73 66 61 57 Z" fill="url(#env-flap)" />
+            <path d="M8 9 L67 53.5 Q73 58 79 53.5 L138 9" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="0.7" stroke-linecap="round" stroke-dasharray="2 2" />
+          </svg>
+        </div>
+        <div class="env-seal">
+          <span class="env-seal-ring"></span>
+          <img :src="logoBrand" alt="" width="18" height="31" />
+        </div>
       </div>
 
       <!-- Ingresso -->
@@ -170,6 +204,7 @@ onBeforeUnmount(() => {
 .envelope {
   --ew: calc(var(--tw) * 1.08);
   --eh: calc(var(--tw) * 0.74);
+  --er: calc(var(--tw) * 0.08);
   height: var(--eh);
   left: 0;
   position: absolute;
@@ -183,71 +218,101 @@ onBeforeUnmount(() => {
 .env-seal {
   animation:
     env-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both,
-    env-out 0.6s cubic-bezier(0.55, 0, 0.75, 0.2) 2.05s forwards;
+    env-out 0.65s cubic-bezier(0.55, 0, 0.75, 0.2) 1.95s forwards;
 }
 
 .env-back,
 .env-front,
-.env-flap-wrap,
-.env-flap {
+.env-flap-wrap {
   inset: 0;
   position: absolute;
+}
+
+.env-back {
+  background: linear-gradient(180deg, #e7eefc 0%, #dbe5f8 100%);
+  border-radius: var(--er);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 40px 70px -34px rgba(28, 45, 90, 0.5),
+    0 14px 30px -20px rgba(0, 87, 255, 0.3);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Forro interno com o padrão da marca, visível quando a aba abre */
+.env-liner {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(0, 87, 255, 0.22) 1px, transparent 1.6px) 0 0 / 11px 11px,
+    linear-gradient(170deg, #f4f7ff 0%, #dfe8fd 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 3%, 50% 66%, 0 3%);
+  inset: 0 0 auto;
+  height: 100%;
+  position: absolute;
+}
+
+/* Bolso: abas laterais e de baixo, com pontas arredondadas */
+.env-front {
+  border-radius: var(--er);
+  overflow: hidden;
+  z-index: 4;
+}
+
+.env-front svg,
+.env-flap {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
 }
 
 .env-flap-wrap {
   animation:
     env-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both,
-    flap-layer 0.6s linear 0.85s both,
-    env-out 0.6s cubic-bezier(0.55, 0, 0.75, 0.2) 2.05s forwards;
+    flap-layer 0.55s linear 0.8s both,
+    env-out 0.65s cubic-bezier(0.55, 0, 0.75, 0.2) 1.95s forwards;
   perspective: 900px;
   z-index: 5;
 }
 
-.env-back {
-  background: linear-gradient(180deg, #e9effb 0%, #dfe7f7 100%);
-  border-radius: 14px;
-  box-shadow: 0 30px 60px -28px rgba(28, 32, 53, 0.45);
-  z-index: 1;
-}
-
-/* Bolso: frente do envelope que cobre o ingresso */
-.env-front {
-  background: linear-gradient(160deg, #ffffff 0%, #f3f6fd 100%);
-  border-radius: 0 0 14px 14px;
-  clip-path: polygon(0 28%, 50% 62%, 100% 28%, 100% 100%, 0 100%);
-  filter: drop-shadow(0 -1px 0 rgba(0, 87, 255, 0.08));
-  z-index: 4;
-}
-
 .env-flap {
-  animation: flap-open 0.6s cubic-bezier(0.65, 0, 0.35, 1) 0.85s both;
-  background: linear-gradient(180deg, #0057ff 0%, #1b69ff 100%);
-  border-radius: 14px 14px 0 0;
-  clip-path: polygon(0 0, 100% 0, 50% 64%);
+  animation: flap-open 0.55s cubic-bezier(0.65, 0, 0.35, 1) 0.8s both;
+  filter: drop-shadow(0 6px 10px rgba(0, 61, 184, 0.28));
   transform-origin: 50% 0;
 }
 
+/* Selo: lacre com anel, como uma carta especial */
 .env-seal {
   align-items: center;
   animation:
     env-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both,
-    seal-out 0.35s cubic-bezier(0.5, 0, 0.75, 0) 0.6s forwards;
-  background: #ffffff;
+    seal-out 0.35s cubic-bezier(0.5, 0, 0.75, 0) 0.55s forwards;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f2f6ff 70%, #e3ebfd 100%);
   border-radius: 50%;
-  box-shadow: 0 6px 18px rgba(0, 87, 255, 0.28);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.55),
+    0 10px 22px -6px rgba(0, 61, 184, 0.55);
   display: flex;
-  height: 48px;
+  height: 54px;
   justify-content: center;
-  left: calc(50% - 24px);
+  left: calc(50% - 27px);
   position: absolute;
-  top: calc(var(--eh) * 0.64 - 30px);
-  width: 48px;
+  top: calc(var(--eh) * 0.62 - 30px);
+  width: 54px;
   z-index: 6;
 }
 
+.env-seal-ring {
+  border: 1.5px dashed rgba(0, 87, 255, 0.35);
+  border-radius: 50%;
+  inset: 5px;
+  position: absolute;
+}
+
 /* ---------- Ingresso ---------- */
+/* O ingresso começa pequeno e inteiro dentro do envelope (entre o fundo e o
+   bolso), sobe pela abertura e só depois passa para a frente e cresce. */
 .ticket-pos {
-  animation: ticket-emerge 1.6s cubic-bezier(0.5, 0, 0.15, 1) 1.3s both;
+  animation: ticket-emerge 1.8s linear 0.8s both;
   inset: 0 calc(var(--tw) * 0.04);
   position: absolute;
   z-index: 3;
@@ -512,10 +577,27 @@ onBeforeUnmount(() => {
 }
 
 @keyframes ticket-emerge {
-  0% { opacity: 0; transform: translateY(calc(var(--th) * 0.2)) scale(0.5); }
-  8% { opacity: 1; }
-  55% { transform: translateY(calc(var(--th) * -0.26)) scale(0.84) rotateX(10deg); }
-  100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg) rotateZ(-1.2deg); }
+  0% {
+    opacity: 0;
+    transform: translateY(calc(var(--th) * 0.15)) scale(0.48);
+    z-index: 3;
+  }
+  22% {
+    opacity: 1;
+    transform: translateY(calc(var(--th) * 0.15)) scale(0.48);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  }
+  58% {
+    transform: translateY(calc(var(--th) * -0.25)) scale(0.5) rotateZ(1.5deg);
+    z-index: 3;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.15, 1);
+  }
+  59% { z-index: 7; }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateZ(-1.2deg);
+    z-index: 7;
+  }
 }
 
 @keyframes ticket-float {
