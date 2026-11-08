@@ -17,6 +17,7 @@ const words = (text) => text.split(' ')
   <div class="story" data-story>
     <!-- 01 · Confirmações -->
     <section class="scene" data-scene aria-labelledby="scene-1-title">
+      <div class="scene-tint" aria-hidden="true" data-scene-tint></div>
       <div class="scene-inner">
         <div class="scene-copy">
           <div class="copy copy-problem" data-copy-problem>
@@ -105,6 +106,7 @@ const words = (text) => text.split(' ')
 
     <!-- 02 · Agenda -->
     <section class="scene" data-scene aria-labelledby="scene-2-title">
+      <div class="scene-tint" aria-hidden="true" data-scene-tint></div>
       <div class="scene-inner">
         <div class="scene-copy">
           <div class="copy copy-problem" data-copy-problem>
@@ -152,6 +154,7 @@ const words = (text) => text.split(' ')
 
     <!-- 03 · Prontuário -->
     <section class="scene" data-scene aria-labelledby="scene-3-title">
+      <div class="scene-tint" aria-hidden="true" data-scene-tint></div>
       <div class="scene-inner">
         <div class="scene-copy">
           <div class="copy copy-problem" data-copy-problem>
@@ -196,6 +199,7 @@ const words = (text) => text.split(' ')
 
     <!-- 04 · Financeiro -->
     <section class="scene" data-scene aria-labelledby="scene-4-title">
+      <div class="scene-tint" aria-hidden="true" data-scene-tint></div>
       <div class="scene-inner">
         <div class="scene-copy">
           <div class="copy copy-problem" data-copy-problem>
@@ -240,16 +244,34 @@ const words = (text) => text.split(' ')
 </template>
 
 <style scoped>
-.story {
-  --scene-bg: #ffffff;
-}
-
 .scene {
-  background: var(--scene-bg);
+  background: #ffffff;
   position: relative;
 }
 
+/* Fundo cinza do "problema": camada separada que anima só opacity (compositor),
+   em vez de animar uma variável CSS que repintava a cena inteira a cada frame. */
+.scene-tint {
+  background: #f1f3f8;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.story.is-animated .scene-tint { will-change: opacity; }
+
+.story.is-animated .problem-layer > *,
+.story.is-animated [data-s-frame],
+.story.is-animated [data-copy-problem],
+.story.is-animated [data-copy-solution] {
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
 .scene-inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 1.5rem;
   grid-template-columns: minmax(0, 1fr);

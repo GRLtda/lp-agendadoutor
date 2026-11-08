@@ -423,8 +423,8 @@ const manifesto = 'Você cuida dos pacientes. O Agenda Doutor ajuda a cuidar da 
 
 .sticky-cta {
   align-items: center;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
+  /* Sem backdrop-filter: o blur refeito a cada frame travava o scroll das cenas */
+  background: rgba(255, 255, 255, 0.97);
   border: 1px solid #e5e7eb;
   border-radius: 18px;
   bottom: calc(0.75rem + env(safe-area-inset-bottom));

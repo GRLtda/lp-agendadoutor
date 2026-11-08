@@ -56,6 +56,14 @@ nativo causava nas cenas com pin; é desligado (`normalizeScroll(false)`) ao
 desmontar. No celular, as cenas usam `100svh`, título em cima e interface
 embaixo, com espaço reservado para o CTA fixo.
 
+**Desempenho do movimento** (regras para não voltar a travar):
+
+- Só animar `transform` e `opacity`. O fundo cinza das cenas é a camada `.scene-tint` (anima `opacity`) e a faixa de luz do contador anima `xPercent`; **não** animar variáveis CSS (`--x`) com GSAP, pois isso recalcula e repinta a subárvore inteira a cada frame.
+- Os elementos animados das cenas e da abertura têm `will-change` (apenas quando `.is-animated`, para não criar camadas sem JS).
+- Contadores (`data-count-up`/`data-count-down`) só escrevem no DOM quando o número muda (`setText`).
+- A abertura pausa as animações infinitas (flutuação do ingresso, ícone de rolagem) e a inclinação por ponteiro quando sai da tela (`IntersectionObserver`, classe `is-offscreen`); a leitura de `getBoundingClientRect` fica dentro do `requestAnimationFrame`.
+- O CTA fixo do celular não usa `backdrop-filter` (blur refeito a cada frame durante o scroll).
+
 Os cartões soltos das cenas 2 a 4 (`EventStory.vue`: notas, arquivos, recibos)
 usam `left`/`top` em `%` pensados para telas largas. No celular, uma regra
 em `@media (max-width: 899px)` reduz `left` (`calc(var(--x) * 0.62)`), limita

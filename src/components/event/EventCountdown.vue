@@ -115,13 +115,13 @@ onBeforeUnmount(() => window.clearInterval(timer))
 
 /* Iluminação: faixa do azul da marca que varre a seção com o scroll (--cd-light) */
 .cd-light {
-  --cd-light: 0;
   background: linear-gradient(115deg, transparent 20%, rgba(0, 87, 255, 0.35) 50%, transparent 80%);
   inset: -20% -40%;
   opacity: 0.9;
   pointer-events: none;
   position: absolute;
-  transform: translateX(calc((var(--cd-light) - 0.5) * 60%));
+  transform: translateX(-30%);
+  will-change: transform;
 }
 
 .cd-inner {

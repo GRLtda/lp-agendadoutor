@@ -57,8 +57,8 @@ export function useEventMotion(rootRef) {
       // Contador: iluminação acompanha o scroll e os blocos entram em sequência.
       const countdown = root.querySelector('[data-countdown]')
       if (countdown) {
-        gsap.to(countdown.querySelector('.cd-light'), {
-          '--cd-light': 1,
+        gsap.fromTo(countdown.querySelector('.cd-light'), { xPercent: -30 }, {
+          xPercent: 30,
           ease: 'none',
           scrollTrigger: { trigger: countdown, start: 'top bottom', end: 'bottom top', scrub: true },
         })
@@ -95,6 +95,12 @@ export function useEventMotion(rootRef) {
   })
 }
 
+// Só escreve no DOM quando o valor muda (evita layout a cada frame do scrub).
+function setText(el, value) {
+  const text = String(value)
+  if (el.textContent !== text) el.textContent = text
+}
+
 // Cena fixada (pin) com scrub: problema entra, se desfaz e vira a solução.
 function buildScene(gsap, scene, isMobile) {
   const q = gsap.utils.selector(scene)
@@ -104,6 +110,7 @@ function buildScene(gsap, scene, isMobile) {
   const copySolution = q('[data-copy-solution]')
   const frame = q('[data-s-frame]')
   const solutionItems = q('[data-s-item]')
+  const tint = q('[data-scene-tint]')
 
   gsap.set(copySolution, { autoAlpha: 0, y: 30 })
   gsap.set(frame, { autoAlpha: 0, y: 90, scale: 0.9, rotateX: 14, transformPerspective: 1000, transformOrigin: '50% 100%' })
@@ -125,7 +132,7 @@ function buildScene(gsap, scene, isMobile) {
 
   // 1. Problema: título se revela e a bagunça vai se acumulando.
   tl.fromTo(words, { opacity: 0.14 }, { opacity: 1, stagger: 0.08, duration: 0.4 }, 0)
-    .to(scene, { '--scene-bg': '#f1f3f8', duration: 1.2 }, 0.2)
+    .to(tint, { opacity: 1, duration: 1.2 }, 0.2)
     .to(problemItems, { autoAlpha: 1, y: 0, scale: 1, stagger: 0.28, duration: 0.6 }, 0.3)
 
   q('[data-count-up]').forEach((el) => {
@@ -134,7 +141,7 @@ function buildScene(gsap, scene, isMobile) {
       value: Number(el.dataset.countUp),
       duration: 2.2,
       ease: 'none',
-      onUpdate: () => { el.textContent = Math.round(counter.value) },
+      onUpdate: () => setText(el, Math.round(counter.value)),
     }, 0.3)
   })
 
@@ -149,7 +156,7 @@ function buildScene(gsap, scene, isMobile) {
     ease: 'power2.in',
   }, 3.4)
     .to(copyProblem, { autoAlpha: 0, y: -30, duration: 0.6 }, 3.6)
-    .to(scene, { '--scene-bg': '#ffffff', duration: 0.8 }, 3.9)
+    .to(tint, { opacity: 0, duration: 0.8 }, 3.9)
 
   // 3. O Agenda Doutor entra e resolve.
   tl.to(copySolution, { autoAlpha: 1, y: 0, duration: 0.7 }, 4.2)
@@ -164,7 +171,7 @@ function buildScene(gsap, scene, isMobile) {
       value: 0,
       duration: 1.6,
       ease: 'power1.inOut',
-      onUpdate: () => { el.textContent = Math.round(counter.value) },
+      onUpdate: () => setText(el, Math.round(counter.value)),
     }, 5.6)
   })
 

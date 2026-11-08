@@ -20,16 +20,25 @@ const offerTitle = computed(() => (props.days === 30 ? '1 mês grátis' : `${pro
 const stage = ref(null)
 let frame = 0
 
+let visible = true
+let observer = null
+let pointer = null
+
 function onPointerMove(event) {
-  if (!stage.value || event.pointerType === 'touch') return
-  const rect = stage.value.getBoundingClientRect()
-  const x = (event.clientX - rect.left) / rect.width - 0.5
-  const y = (event.clientY - rect.top) / rect.height - 0.5
-  cancelAnimationFrame(frame)
+  // Fora da tela não há o que inclinar: não gasta layout nem estilo.
+  if (!visible || !stage.value || event.pointerType === 'touch') return
+  pointer = { x: event.clientX, y: event.clientY }
+  if (frame) return
   frame = requestAnimationFrame(() => {
-    stage.value?.style.setProperty('--tilt-y', `${(x * 14).toFixed(2)}deg`)
-    stage.value?.style.setProperty('--tilt-x', `${(-y * 10).toFixed(2)}deg`)
-    stage.value?.style.setProperty('--shine-x', `${((x + 0.5) * 100).toFixed(1)}%`)
+    frame = 0
+    if (!stage.value || !pointer) return
+    // A leitura do retângulo fica dentro do rAF, uma vez por frame.
+    const rect = stage.value.getBoundingClientRect()
+    const x = (pointer.x - rect.left) / rect.width - 0.5
+    const y = (pointer.y - rect.top) / rect.height - 0.5
+    stage.value.style.setProperty('--tilt-y', `${(x * 14).toFixed(2)}deg`)
+    stage.value.style.setProperty('--tilt-x', `${(-y * 10).toFixed(2)}deg`)
+    stage.value.style.setProperty('--shine-x', `${((x + 0.5) * 100).toFixed(1)}%`)
   })
 }
 
@@ -41,12 +50,23 @@ function onPointerLeave() {
 onMounted(() => {
   window.addEventListener('pointermove', onPointerMove, { passive: true })
   document.documentElement.addEventListener('pointerleave', onPointerLeave)
+  // Pausa as animações infinitas (flutuação, rolagem do mouse) quando a
+  // abertura sai da tela; a de entrada (única) não é afetada.
+  if ('IntersectionObserver' in window && stage.value) {
+    const section = stage.value.closest('.intro')
+    observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting
+      section?.classList.toggle('is-offscreen', !visible)
+    })
+    observer.observe(section || stage.value)
+  }
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('pointermove', onPointerMove)
   document.documentElement.removeEventListener('pointerleave', onPointerLeave)
   cancelAnimationFrame(frame)
+  observer?.disconnect()
 })
 </script>
 
@@ -619,6 +639,17 @@ onBeforeUnmount(() => {
   0% { opacity: 0; transform: translateY(0); }
   30% { opacity: 1; }
   100% { opacity: 0; transform: translateY(9px); }
+}
+
+.intro.is-offscreen .ticket-float,
+.intro.is-offscreen .scroll-hint span::after {
+  animation-play-state: paused;
+}
+
+.ticket-pos,
+.ticket-float,
+.env-flap {
+  will-change: transform;
 }
 
 @media (min-width: 900px) {
