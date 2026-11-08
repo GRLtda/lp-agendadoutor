@@ -11,6 +11,11 @@ export function useEventMotion(rootRef) {
   onMounted(async () => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
+    // `scroll-behavior: smooth` global faz o navegador suavizar a rolagem por
+    // conta própria, brigando com o scrub/pin do ScrollTrigger (sensação de lag).
+    document.documentElement.style.scrollBehavior = 'auto'
+    document.body.style.scrollBehavior = 'auto'
+
     const [{ gsap }, { ScrollTrigger: ST }] = await Promise.all([
       import('gsap'),
       import('gsap/ScrollTrigger'),
@@ -91,6 +96,8 @@ export function useEventMotion(rootRef) {
   onBeforeUnmount(() => {
     if (onLoad) window.removeEventListener('load', onLoad)
     ctx?.revert()
+    document.documentElement.style.scrollBehavior = ''
+    document.body.style.scrollBehavior = ''
     ScrollTrigger?.normalizeScroll(false)
   })
 }

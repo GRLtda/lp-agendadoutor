@@ -62,6 +62,8 @@ embaixo, com espaço reservado para o CTA fixo.
 - Os elementos animados das cenas e da abertura têm `will-change` (apenas quando `.is-animated`, para não criar camadas sem JS).
 - Contadores (`data-count-up`/`data-count-down`) só escrevem no DOM quando o número muda (`setText`).
 - A abertura pausa as animações infinitas (flutuação do ingresso, ícone de rolagem) e a inclinação por ponteiro quando sai da tela (`IntersectionObserver`, classe `is-offscreen`); a leitura de `getBoundingClientRect` fica dentro do `requestAnimationFrame`.
+- Enquanto a página do evento está montada, `scroll-behavior` do `html`/`body` fica `auto` (o `smooth` global do `normalize.css` suavizava a rolagem por conta própria e brigava com o scrub/pin). É restaurado ao sair da página.
+- No celular (`max-width: 899px`) o header (`AppHeader`) não usa `backdrop-filter`: fundo branco quase opaco ao rolar. No desktop o blur continua.
 - O CTA fixo do celular não usa `backdrop-filter` (blur refeito a cada frame durante o scroll).
 
 Os cartões soltos das cenas 2 a 4 (`EventStory.vue`: notas, arquivos, recibos)

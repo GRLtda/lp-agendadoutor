@@ -130,8 +130,7 @@ onUnmounted(() => {
   align-items: center;
   z-index: 100;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.1); 
-  backdrop-filter: blur(0px);
+  background: rgba(255, 255, 255, 0.1);
 }
 .landing-header.is-hidden {
   transform: translateY(-110%);
@@ -143,6 +142,13 @@ onUnmounted(() => {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0,0,0,0.05);
   height: 60px;
+}
+/* No celular o blur refeito a cada frame pesava no scroll: fundo quase opaco */
+@media (max-width: 899px) {
+  .landing-header.is-scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: none;
+  }
 }
 .header-container {
   display: flex;
