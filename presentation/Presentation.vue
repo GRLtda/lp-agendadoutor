@@ -162,12 +162,12 @@ function visibilityChanged() {
 function onKey(event) {
   if (event.target.closest('button, input, a') || event.ctrlKey || event.metaKey || event.altKey) return
   if (event.key === 'Escape') { pairOpen.value = false; return }
+  if (!controller) return
   const actions = { ArrowRight: 'next', ArrowDown: 'next', PageDown: 'next', ' ': 'next', Enter: 'next', ArrowLeft: 'prev', ArrowUp: 'prev', PageUp: 'prev', Backspace: 'prev', t: 'timer', T: 'timer' }
   const action = actions[event.key]
   if (!action) return
   event.preventDefault()
-  if (controller) sendCommand(action)
-  else { api()?.command(action); refreshHost(); publishState() }
+  sendCommand(action)
 }
 
 onMounted(async () => {
