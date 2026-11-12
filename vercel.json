@@ -29,6 +29,10 @@
     ],
     "rewrites": [
         {
+            "source": "/apresentacao/pdn",
+            "destination": "/apresentacao/pdn/index.html"
+        },
+        {
             "source": "/termos",
             "destination": "/termos/index.html"
         },
@@ -96,6 +100,19 @@
                 {
                     "key": "Cache-Control",
                     "value": "public, s-maxage=0, must-revalidate, no-cache, no-store"
+                }
+            ]
+        },
+        {
+            "source": "/apresentacao/(.*)",
+            "headers": [
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "noindex, nofollow"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "no-referrer"
                 }
             ]
         }
