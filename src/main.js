@@ -15,7 +15,8 @@ export const createApp = ViteSSG(
     base: import.meta.env.BASE_URL,
     scrollBehavior,
   },
-  ({ router }) => {
+  ({ app, router, initialState }) => {
+    app.provide('blogState', initialState)
     if (import.meta.env.SSR) return
 
     initBehaviorAnalytics()

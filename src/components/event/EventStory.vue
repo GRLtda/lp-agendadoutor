@@ -1,4 +1,5 @@
 <script setup>
+import WhatsAppConfirmAction from '@/components/home/WhatsAppConfirmAction.vue'
 import { Check, CheckCheck, FileText, Image, Paperclip, Receipt, StickyNote, Wallet } from 'lucide-vue-next'
 import whatsappBg from '@/assets/imgs/whatsapp_bg.jpg'
 import logoBrand from '@/assets/logo_brand.svg'
@@ -91,8 +92,8 @@ const words = (text) => text.split(' ')
 
             <div class="auto-msg" data-s-item>
               <span class="auto-label"><img :src="logoBrand" alt="" width="9" height="16" /> Mensagem automática</span>
-              <p>Olá, Helena! Sua consulta é amanhã às 09:20. Responda <b>1</b> para confirmar.</p>
-              <p class="auto-reply">1 <CheckCheck :size="14" /></p>
+              <p>Olá, Helena! Sua consulta é amanhã às 09:20. Toque no botão abaixo para confirmar.<WhatsAppConfirmAction /></p>
+              <p class="auto-reply">Confirmar consulta <CheckCheck :size="14" /></p>
             </div>
 
             <div class="counter-chip" data-s-item>

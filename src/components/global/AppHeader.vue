@@ -39,6 +39,7 @@ function handleScroll() {
 }
 
 function scrollToSection(id) {
+  if (isMobileMenuOpen.value) toggleMobileMenu()
   // Se não estiver na home, vai para a home primeiro
   if (route.path !== '/') {
     router.push({ path: '/', hash: `#${id}` })
@@ -76,10 +77,11 @@ onUnmounted(() => {
         </div>
 
         <nav class="desktop-nav">
-          <a href="#funcionalidades" data-track-click="header_menu_funcionalidades" @click.prevent="scrollToSection('funcionalidades')">Funcionalidades</a>
-          <a href="#beneficios" data-track-click="header_menu_beneficios" @click.prevent="scrollToSection('beneficios')">Benefícios</a>
-          <a href="#faq" data-track-click="header_menu_faq" @click.prevent="scrollToSection('faq')">FAQ</a>
-          <a href="#contato" data-track-click="header_menu_contato" @click.prevent="scrollToSection('footer')">Contato</a>
+          <a href="/#funcionalidades" data-track-click="header_menu_funcionalidades" @click.prevent="scrollToSection('funcionalidades')">Funcionalidades</a>
+          <a href="/#beneficios" data-track-click="header_menu_beneficios" @click.prevent="scrollToSection('beneficios')">Benefícios</a>
+          <a href="/#faq" data-track-click="header_menu_faq" @click.prevent="scrollToSection('faq')">FAQ</a>
+          <a href="/blog" data-track-click="header_menu_blog" :aria-current="route.path.startsWith('/blog') ? 'page' : undefined">Blog</a>
+          <a href="/#footer" data-track-click="header_menu_contato" @click.prevent="scrollToSection('footer')">Contato</a>
         </nav>
 
         <div class="header-actions">
@@ -106,9 +108,10 @@ onUnmounted(() => {
       <!-- Mobile Menu -->
       <div v-if="isMobileMenuOpen" id="mobile-navigation" class="mobile-menu">
         <nav>
-          <a href="#funcionalidades" data-track-click="mobile_menu_funcionalidades" @click="toggleMobileMenu()">Funcionalidades</a>
-          <a href="#beneficios" data-track-click="mobile_menu_beneficios" @click="toggleMobileMenu()">Benefícios</a>
-          <a href="#faq" data-track-click="mobile_menu_faq" @click="toggleMobileMenu()">FAQ</a>
+          <a href="/#funcionalidades" data-track-click="mobile_menu_funcionalidades" @click.prevent="scrollToSection('funcionalidades')">Funcionalidades</a>
+          <a href="/#beneficios" data-track-click="mobile_menu_beneficios" @click.prevent="scrollToSection('beneficios')">Benefícios</a>
+          <a href="/#faq" data-track-click="mobile_menu_faq" @click.prevent="scrollToSection('faq')">FAQ</a>
+          <a href="/blog" data-track-click="mobile_menu_blog">Blog</a>
           <div class="mobile-actions-list">
             <AppButton to="/login" variant="outline" size="lg" class="mobile-full" data-track-click="mobile_menu_login">Login</AppButton>
             <AppButton :to="props.registerHref ? null : '/register'" :href="props.registerHref" variant="primary" size="lg" class="mobile-full" data-track-click="mobile_menu_register_comecar_agora">

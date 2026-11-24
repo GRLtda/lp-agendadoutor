@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import WhatsAppConfirmAction from './WhatsAppConfirmAction.vue'
 import {
   ArrowRight,
   CalendarCheck,
@@ -167,9 +168,9 @@ onBeforeUnmount(() => {
           <button type="button" class="replay" @click="replayKey++">
             <RotateCcw :size="13" /> Ver de novo
           </button>
-          <div :key="replayKey" class="shows-chat" aria-hidden="true">
-            <p class="sc-out">Olá, Helena! Sua consulta é amanhã às 09:00. Responda <b>1</b> para confirmar.</p>
-            <p class="sc-in">1 <CheckCheck :size="13" /></p>
+          <div :key="replayKey" class="shows-chat" role="group" aria-label="Demonstração de confirmação pelo WhatsApp">
+            <p class="sc-out">Olá, Helena! Sua consulta é amanhã às 09:00. Toque no botão abaixo para confirmar.<WhatsAppConfirmAction /></p>
+            <p class="sc-in">Confirmar consulta <CheckCheck :size="13" /></p>
             <div class="sc-appt">
               <span class="sc-time">09:00</span>
               <strong>Helena Martins</strong>

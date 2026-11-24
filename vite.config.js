@@ -4,7 +4,7 @@ import { imagetools } from 'vite-imagetools'
 import path from 'path'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [
     imagetools(),
     vue(),
@@ -18,4 +18,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-})
+  build: { manifest: !isSsrBuild },
+  ssr: { noExternal: ['vite-ssg'] },
+  server: { proxy: { '/blog/media': process.env.BLOG_API_ORIGIN || 'http://localhost:3001' } },
+}))

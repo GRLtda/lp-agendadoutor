@@ -3,6 +3,7 @@ import { ArrowRight, Check, CheckCheck, Plus, Search } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
 import AppButton from '@/components/global/AppButton.vue'
 import AppSidebarMock from './AppSidebarMock.vue'
+import WhatsAppConfirmAction from './WhatsAppConfirmAction.vue'
 import logoWhatsapp from '@/assets/logo_whatsapp.svg'
 import fotoMilena from '@/assets/imgs/foto_milena.webp?w=48&h=48&fit=cover&position=center&format=webp&quality=75'
 import fotoManu from '@/assets/imgs/foto_manu.webp?w=48&h=48&fit=cover&position=center&format=webp&quality=75'
@@ -135,13 +136,13 @@ const appointments = [
           </div>
 
           <!-- Mensagem automática no WhatsApp -->
-          <div class="float float-whats" aria-hidden="true">
+          <div class="float float-whats" role="group" aria-label="Demonstração de confirmação pelo WhatsApp">
             <header>
               <img :src="logoWhatsapp" alt="" width="16" height="16" />
               <span>Mensagem automática · 24h antes</span>
             </header>
-            <p class="fw-out">Olá, Helena! Sua consulta é amanhã às 09:00. Responda <b>1</b> para confirmar.</p>
-            <p class="fw-in">1 <CheckCheck :size="13" /></p>
+            <p class="fw-out">Olá, Helena! Sua consulta é amanhã às 09:00. Toque no botão abaixo para confirmar.<WhatsAppConfirmAction /></p>
+            <p class="fw-in">Confirmar consulta <CheckCheck :size="13" /></p>
           </div>
 
           <!-- Confirmação recebida -->

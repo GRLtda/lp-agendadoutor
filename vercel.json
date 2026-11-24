@@ -28,6 +28,8 @@
         }
     ],
     "rewrites": [
+        { "source": "/blog", "destination": "/api/blog" },
+        { "source": "/blog/:path*", "destination": "/api/blog?path=:path*" },
         {
             "source": "/apresentacao/pdn",
             "destination": "/apresentacao/pdn/index.html"
@@ -57,6 +59,7 @@
             "destination": "/evento/index.html"
         }
     ],
+    "functions": { "api/blog.js": { "includeFiles": "dist/**" } },
     "headers": [
         {
             "source": "/(.*)",

@@ -11,6 +11,7 @@ function redirectToApp(path = '') {
 }
 
 export const routes = [
+    { path: '/blog/:slug?', name: 'blog', component: () => import('../views/BlogView.vue'), meta: { title: 'Blog | Agenda Doutor', description: 'Notícias, inovação em saúde e gestão de clínicas no blog do Agenda Doutor.' } },
     {
         path: '/',
         name: 'home',

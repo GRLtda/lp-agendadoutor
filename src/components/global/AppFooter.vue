@@ -34,6 +34,7 @@ import logoWhatsapp from '@/assets/logo_whatsapp.svg'
         <a href="/#funcionalidades" data-track-click="footer_produto_funcionalidades">Funcionalidades</a>
         <a href="/#beneficios" data-track-click="footer_produto_beneficios">Benefícios</a>
         <a href="/login" data-track-click="footer_produto_area_cliente">Área do Cliente</a>
+        <a href="/blog" data-track-click="footer_produto_blog">Blog</a>
       </div>
       
       <div class="footer-col links-col">

@@ -21,6 +21,7 @@ import {
   ArrowRight,
 } from 'lucide-vue-next'
 import whatsappBg from '@/assets/imgs/whatsapp_bg.jpg'
+import WhatsAppConfirmAction from './WhatsAppConfirmAction.vue'
 
 // Telas demonstrativas de cada funcionalidade, desenhadas com a mesma
 // nomenclatura e cores do app. Medidas em em: o tamanho da fonte acompanha a
@@ -69,7 +70,7 @@ const templates = [
 </script>
 
 <template>
-  <div class="fs" :class="[`fs-${kind}`, { 'is-active': active }]" aria-hidden="true">
+  <div class="fs" :class="[`fs-${kind}`, { 'is-active': active }]" :aria-hidden="kind !== 'whatsapp' ? true : undefined">
     <!-- 1 · Agenda -->
     <div v-if="kind === 'agenda'" class="fs-wrap ag">
       <div class="ag-main">
@@ -112,11 +113,12 @@ const templates = [
         <div class="wa-body" :style="{ backgroundImage: `url(${whatsappBg})` }">
           <p class="wa-msg out m1">
             <span class="wa-auto">Mensagem automática</span>
-            Olá, Bruno! Lembrete: sua consulta é amanhã, às 09:30. Responda <b>1</b> para confirmar.
+            Olá, Bruno! Lembrete: sua consulta é amanhã, às 09:30. Toque no botão abaixo para confirmar.
             <small>18:00 <CheckCheck :size="11" /></small>
+            <WhatsAppConfirmAction />
           </p>
           <p class="wa-typing m2"><i></i><i></i><i></i></p>
-          <p class="wa-msg in m3">1<small>18:04</small></p>
+          <p class="wa-msg in m3">Confirmar consulta<small>18:04</small></p>
           <p class="wa-msg out m4">
             Consulta confirmada! Até amanhã 🙂
             <small>18:04 <CheckCheck :size="11" /></small>

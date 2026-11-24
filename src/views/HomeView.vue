@@ -7,6 +7,7 @@ import HomeConfirmStory from '@/components/home/HomeConfirmStory.vue'
 import HomeFeatures from '@/components/home/HomeFeatures.vue'
 import HomeBeforeAfter from '@/components/home/HomeBeforeAfter.vue'
 import HomeFaq from '@/components/home/HomeFaq.vue'
+import HomeBlog from '@/components/home/HomeBlog.vue'
 import HomeFinalCta from '@/components/home/HomeFinalCta.vue'
 import HomeStickyCta from '@/components/home/HomeStickyCta.vue'
 import { useHomeMotion } from '@/composables/useHomeMotion'
@@ -29,6 +30,7 @@ useHomeMotion(root)
       <HomeFeatures @cover-top="headerHidden = $event" />
       <HomeBeforeAfter />
       <HomeFaq />
+      <HomeBlog />
       <HomeFinalCta />
     </main>
 

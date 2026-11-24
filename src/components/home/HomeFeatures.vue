@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
               </ul>
             </div>
 
-            <div class="ft-mobile-device" aria-hidden="true">
+            <div class="ft-mobile-device" :aria-hidden="c.kind !== 'whatsapp' ? true : undefined">
               <div class="dev-bar"><i></i><i></i><i></i><span>app.agendadoutor.com/{{ c.path }}</span></div>
               <div class="ft-mobile-screen">
                 <FeatureScreen v-if="layout === 'mobile'" :kind="c.kind" :active="active === i" />
@@ -166,7 +166,7 @@ onBeforeUnmount(() => {
         </ol>
 
         <div class="ft-sticky">
-          <div class="ft-device" aria-hidden="true">
+          <div class="ft-device" :aria-hidden="chapters[active].kind !== 'whatsapp' ? true : undefined">
             <div class="dev-bar">
               <i></i><i></i><i></i>
               <span class="dev-url">app.agendadoutor.com/<b :key="chapters[active].path">{{ chapters[active].path }}</b></span>
@@ -179,6 +179,7 @@ onBeforeUnmount(() => {
                   :key="c.kind"
                   class="dev-screen"
                   :class="{ 'is-shown': active === i, 'is-past': i < active }"
+                  :inert="active !== i"
                 >
                   <FeatureScreen v-if="layout === 'desktop'" :kind="c.kind" :active="active === i" />
                 </div>
