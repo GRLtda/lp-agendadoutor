@@ -1,5 +1,6 @@
 <script setup>
-import { Check, CheckCheck, FileText, Image, Paperclip, Receipt, StickyNote, Wallet } from 'lucide-vue-next'
+import WaConfirmButton from '@/components/WaConfirmButton.vue'
+import { Check, FileText, Image, Paperclip, Receipt, StickyNote, Wallet } from 'lucide-vue-next'
 import whatsappBg from '@/assets/imgs/whatsapp_bg.jpg'
 import logoBrand from '@/assets/logo_brand.svg'
 import calendarDesktop from '@/assets/tela_calendario.png?w=1400&format=webp&quality=86'
@@ -91,8 +92,8 @@ const words = (text) => text.split(' ')
 
             <div class="auto-msg" data-s-item>
               <span class="auto-label"><img :src="logoBrand" alt="" width="9" height="16" /> Mensagem automática</span>
-              <p>Olá, Helena! Sua consulta é amanhã às 09:20. Responda <b>1</b> para confirmar.</p>
-              <p class="auto-reply">1 <CheckCheck :size="14" /></p>
+              <p>Olá, Helena! Sua consulta é amanhã às 09:20. Toque no botão para confirmar.</p>
+              <WaConfirmButton class="auto-btn" loop delay="0.9s" />
             </div>
 
             <div class="counter-chip" data-s-item>
@@ -534,17 +535,7 @@ const words = (text) => text.split(' ')
 
 .auto-msg p { color: #1c2035; font-size: 0.8rem; line-height: 1.35; margin: 0.3rem 0 0; }
 
-.auto-reply {
-  align-items: center;
-  background: #ffffff;
-  border-radius: 8px;
-  display: inline-flex !important;
-  gap: 0.3rem;
-  margin-top: 0.4rem !important;
-  padding: 0.15rem 0.5rem;
-}
-
-.auto-reply svg { color: #53bdeb; }
+.auto-btn { font-size: 0.78rem; margin-top: 0.45rem; }
 
 .counter-chip {
   align-items: center;

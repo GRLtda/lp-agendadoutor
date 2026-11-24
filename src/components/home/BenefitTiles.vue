@@ -1,4 +1,5 @@
 <script setup>
+import WaConfirmButton from '@/components/WaConfirmButton.vue'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import {
@@ -168,8 +169,11 @@ onBeforeUnmount(() => {
             <RotateCcw :size="13" /> Ver de novo
           </button>
           <div :key="replayKey" class="shows-chat" aria-hidden="true">
-            <p class="sc-out">Olá, Helena! Sua consulta é amanhã às 09:00. Responda <b>1</b> para confirmar.</p>
-            <p class="sc-in">1 <CheckCheck :size="13" /></p>
+            <div class="sc-tpl">
+              <p class="sc-out">Olá, Helena! Sua consulta é amanhã às 09:00. Toque no botão para confirmar.</p>
+              <WaConfirmButton class="sc-btn" :play="seen[1]" delay="1.25s" />
+            </div>
+            <p class="sc-in">Confirmar consulta <CheckCheck :size="13" /></p>
             <div class="sc-appt">
               <span class="sc-time">09:00</span>
               <strong>Helena Martins</strong>
@@ -436,7 +440,9 @@ onBeforeUnmount(() => {
 .panel-chat { padding: 0; background: #efeae2 url('@/assets/imgs/whatsapp_bg.jpg'); background-size: 260px; }
 .shows-chat { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.5rem; height: 100%; padding: 3rem 1rem 1rem; box-sizing: border-box; }
 .sc-out, .sc-in { margin: 0; padding: 0.6rem 0.8rem; border-radius: 12px; font-size: 0.82rem; line-height: 1.4; color: var(--ad-ink); box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06); }
-.sc-out { align-self: flex-end; max-width: 88%; background: #d9fdd3; border-top-right-radius: 3px; }
+.sc-tpl { align-self: flex-end; display: flex; flex-direction: column; max-width: 88%; }
+.sc-btn { margin-top: 4px; font-size: 0.82rem; }
+.sc-out { align-self: flex-end; background: #d9fdd3; border-top-right-radius: 3px; }
 .sc-in { align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; background: #fff; border-top-left-radius: 3px; font-weight: 600; }
 .sc-in svg { color: #53bdeb; }
 .sc-appt { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.3rem; padding: 0.6rem 0.75rem; border-radius: 12px; background: #fff; font-size: 0.82rem; }
@@ -447,11 +453,11 @@ onBeforeUnmount(() => {
 .st { display: inline-flex; align-items: center; gap: 3px; padding: 2px 9px; border-radius: 999px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
 .st-agendado { background: #eef2ff; color: #3b82f6; }
 .st-confirmado { background: #fefce8; color: #a16207; border: 1px solid #fde68a; opacity: 0; }
-.is-in .sc-out { animation: msg 0.5s 0.4s var(--ease-back) both; }
-.is-in .sc-in { animation: msg 0.45s 1.3s var(--ease-back) both; }
-.is-in .sc-st .st-agendado { animation: out 0.25s 1.9s forwards; }
-.is-in .sc-st .st-confirmado { animation: pop 0.45s 1.95s var(--ease-back) forwards; }
-.is-in .sc-appt { animation: ring 1.1s 1.95s ease-out; }
+.is-in .sc-tpl { animation: msg 0.5s 0.4s var(--ease-back) both; }
+.is-in .sc-in { animation: msg 0.45s 1.75s var(--ease-back) both; }
+.is-in .sc-st .st-agendado { animation: out 0.25s 2.3s forwards; }
+.is-in .sc-st .st-confirmado { animation: pop 0.45s 2.35s var(--ease-back) forwards; }
+.is-in .sc-appt { animation: ring 1.1s 2.35s ease-out; }
 .replay {
   position: absolute;
   top: 0.75rem;

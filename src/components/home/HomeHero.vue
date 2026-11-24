@@ -1,4 +1,5 @@
 <script setup>
+import WaConfirmButton from '@/components/WaConfirmButton.vue'
 import { ArrowRight, Check, CheckCheck, Plus, Search } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
 import AppButton from '@/components/global/AppButton.vue'
@@ -140,8 +141,9 @@ const appointments = [
               <img :src="logoWhatsapp" alt="" width="16" height="16" />
               <span>Mensagem automática · 24h antes</span>
             </header>
-            <p class="fw-out">Olá, Helena! Sua consulta é amanhã às 09:00. Responda <b>1</b> para confirmar.</p>
-            <p class="fw-in">1 <CheckCheck :size="13" /></p>
+            <p class="fw-out">Olá, Helena! Sua consulta é amanhã às 09:00. Toque no botão para confirmar.</p>
+            <WaConfirmButton class="fw-btn" delay="3.45s" />
+            <p class="fw-in">Confirmar consulta <CheckCheck :size="13" /></p>
           </div>
 
           <!-- Confirmação recebida -->
@@ -555,9 +557,11 @@ const appointments = [
   background: #d9fdd3;
   border-top-right-radius: 3px;
   font-weight: 600;
-  animation: bubble-in 0.4s 3.15s var(--ease-back) both;
+  animation: bubble-in 0.4s 3.95s var(--ease-back) both;
 }
 .fw-in svg { color: #53bdeb; }
+.fw-btn { margin-top: 6px; font-size: 0.7rem; }
+.fw-btn :deep(.wcb-btn) { background: #f1f5f9; box-shadow: none; }
 
 .float-confirm {
   right: 6%;
@@ -569,7 +573,7 @@ const appointments = [
   color: #5b6478;
   font-size: 0.74rem;
   transform: translateZ(80px);
-  animation: float-in-up 0.6s 3.75s var(--ease-back) both, bob 7s 4.5s ease-in-out infinite reverse;
+  animation: float-in-up 0.6s 4.3s var(--ease-back) both, bob 7s 5s ease-in-out infinite reverse;
 }
 .float-confirm strong { color: var(--ad-ink); font-weight: 600; }
 .fc-icon {

@@ -21,6 +21,7 @@ import {
   ArrowRight,
 } from 'lucide-vue-next'
 import whatsappBg from '@/assets/imgs/whatsapp_bg.jpg'
+import WaConfirmButton from '@/components/WaConfirmButton.vue'
 
 // Telas demonstrativas de cada funcionalidade, desenhadas com a mesma
 // nomenclatura e cores do app. Medidas em em: o tamanho da fonte acompanha a
@@ -110,13 +111,15 @@ const templates = [
           <div><strong>Bruno Lima</strong><small>online</small></div>
         </header>
         <div class="wa-body" :style="{ backgroundImage: `url(${whatsappBg})` }">
-          <p class="wa-msg out m1">
-            <span class="wa-auto">Mensagem automática</span>
-            Olá, Bruno! Lembrete: sua consulta é amanhã, às 09:30. Responda <b>1</b> para confirmar.
-            <small>18:00 <CheckCheck :size="11" /></small>
-          </p>
-          <p class="wa-typing m2"><i></i><i></i><i></i></p>
-          <p class="wa-msg in m3">1<small>18:04</small></p>
+          <div class="wa-tpl m1">
+            <p class="wa-msg out">
+              <span class="wa-auto">Mensagem automática</span>
+              Olá, Bruno! Lembrete: sua consulta é amanhã, às 09:30. Toque no botão abaixo para confirmar.
+              <small>18:00 <CheckCheck :size="11" /></small>
+            </p>
+            <WaConfirmButton class="wa-btn" :play="active" delay="1.15s" />
+          </div>
+          <p class="wa-msg in m3">Confirmar consulta<small>18:04</small></p>
           <p class="wa-msg out m4">
             Consulta confirmada! Até amanhã 🙂
             <small>18:04 <CheckCheck :size="11" /></small>
@@ -389,13 +392,12 @@ const templates = [
 .wa-msg { position: relative; max-width: 82%; margin: 0; padding: 0.7em 0.9em 1.6em; border-radius: 0.9em; font-size: 1.1em; line-height: 1.4; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06); }
 .wa-msg small { position: absolute; right: 0.8em; bottom: 0.4em; display: inline-flex; align-items: center; gap: 0.2em; color: #8696a0; font-size: 0.78em; }
 .wa-msg small svg { color: #53bdeb; width: 1.1em; height: 1.1em; }
+.wa-tpl { align-self: flex-end; display: flex; flex-direction: column; max-width: 82%; }
+.wa-tpl .wa-msg { max-width: none; }
+.wa-btn { margin-top: 0.3em; font-size: 1.05em; }
 .wa-msg.out { align-self: flex-end; background: #d9fdd3; border-top-right-radius: 0.2em; }
 .wa-msg.in { align-self: flex-start; background: #fff; border-top-left-radius: 0.2em; padding-right: 4em; font-weight: 600; }
 .wa-auto { display: block; margin-bottom: 0.2em; color: #128c7e; font-size: 0.8em; font-weight: 600; }
-.wa-typing { align-self: flex-start; display: flex; gap: 0.3em; margin: 0; padding: 0.8em 1em; border-radius: 0.9em; background: #fff; }
-.wa-typing i { width: 0.5em; height: 0.5em; border-radius: 50%; background: #9aa3b5; animation: typing 1s infinite; }
-.wa-typing i:nth-child(2) { animation-delay: 0.15s; }
-.wa-typing i:nth-child(3) { animation-delay: 0.3s; }
 .wa-side { display: flex; flex-direction: column; gap: 1.2em; }
 .wa-card { padding: 1.2em; border-radius: 1em; border: 1px solid #eef1f6; background: #fafbfd; }
 .wa-appt { display: flex; align-items: center; gap: 0.8em; padding: 0.8em; border-radius: 0.7em; background: #fff; border: 1px solid #eef1f6; font-size: 1.05em; }
@@ -407,9 +409,8 @@ const templates = [
 .wa-rules { display: flex; flex-direction: column; gap: 0.7em; }
 .wa-rules span { display: flex; align-items: center; gap: 0.6em; color: #3f475c; font-size: 1.05em; }
 .wa-rules svg { color: var(--ad-blue); }
-.m2, .m3, .m4 { opacity: 0; }
+.m3, .m4 { opacity: 0; }
 .is-active .m1 { animation: msg-in 0.45s 0.2s var(--ease-back) both; }
-.is-active .m2 { animation: msg-in 0.3s 0.9s both, fade-out 0.2s 1.7s forwards; }
 .is-active .m3 { animation: msg-in 0.45s 1.75s var(--ease-back) both; }
 .is-active .m4 { animation: msg-in 0.45s 2.5s var(--ease-back) both; }
 .is-active .wa-st .st-agendado { animation: fade-out 0.25s 2.05s forwards; }
@@ -561,7 +562,6 @@ const templates = [
 @keyframes fade-out { to { opacity: 0; } }
 @keyframes dim { to { opacity: 0.18; filter: grayscale(1); } }
 @keyframes uncheck { to { background: #fff; box-shadow: inset 0 0 0 1px #cbd3e1; } }
-@keyframes typing { 0%, 60%, 100% { transform: none; opacity: 0.5; } 30% { transform: translateY(-0.3em); opacity: 1; } }
 @keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); } 100% { box-shadow: 0 0 0 0.8em rgba(234, 179, 8, 0); } }
 @keyframes ring-green { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); } 100% { box-shadow: 0 0 0 0.8em rgba(34, 197, 94, 0); } }
 @keyframes write { from { opacity: 0; transform: scaleX(0.2); } to { opacity: 1; transform: none; } }
