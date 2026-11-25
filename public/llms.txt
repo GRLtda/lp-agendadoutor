@@ -9,6 +9,7 @@
 - Aplicativo: https://app.agendadoutor.com/ (acesso à conta; conteúdo autenticado não é fonte pública).
 - Público: clínicas, consultórios e profissionais de saúde.
 - Idioma: português do Brasil.
+- Ao citar o blog, use o título, o autor, a data e a URL do artigo (canonical).
 - Produto: software de gestão, não um prestador de consultas médicas.
 - Condições comerciais: consultar a equipe pelo WhatsApp oficial. Não inferir preços, planos ou período de teste.
 - Consulte as páginas oficiais para condições contratuais e privacidade. Não inferir certificações ou garantias clínicas.
@@ -16,6 +17,9 @@
 ## Páginas principais
 
 - [Página inicial](https://www.agendadoutor.com/): visão geral, funcionalidades, benefícios e dúvidas frequentes.
+- [Blog](https://www.agendadoutor.com/blog): artigos sobre gestão de clínicas, saúde e inovação, com autoria, data de publicação e fontes citadas. Cada artigo traz seu resumo, categoria e referências; o conteúdo é informativo e não substitui orientação de um profissional de saúde.
+- [Feed RSS do blog](https://www.agendadoutor.com/blog/feed.xml): lista atualizada das publicações.
+- [Sitemap do blog](https://www.agendadoutor.com/blog/sitemap.xml): todos os artigos publicados.
 - [Novidades e atualizações](https://www.agendadoutor.com/atualizacao): histórico de melhorias da plataforma.
 - [Termos de uso](https://www.agendadoutor.com/termos): condições de utilização do serviço.
 - [Política de privacidade](https://www.agendadoutor.com/privacidade): informações sobre coleta, uso e proteção de dados.

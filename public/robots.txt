@@ -1,8 +1,36 @@
 User-agent: *
 Allow: /
 
-# Descoberta na busca do ChatGPT. Mantém a política geral existente.
+# Busca e assistentes de IA (GEO): conteúdo público do site e do blog pode ser
+# lido e citado. Mantém a política geral existente.
 User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://www.agendadoutor.com/sitemap.xml

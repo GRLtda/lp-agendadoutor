@@ -14,6 +14,8 @@ import AppFooter from "@/components/global/AppFooter.vue";
 import AppButton from "@/components/global/AppButton.vue";
 import BlogCard from "@/components/blog/BlogCard.vue";
 import { BLOG_ORIGIN, blogHead, blogQuery, loadBlogPage } from "@/blog/data";
+import { postParams, useBlogEngagement } from "@/blog/engagement";
+import { trackEvent } from "@/services/behaviorAnalytics";
 import "@/assets/css/blog.css";
 
 const route = useRoute();
@@ -34,6 +36,7 @@ const date = (value) =>
     timeZone: "America/Sao_Paulo",
   }).format(new Date(value));
 useHead(computed(() => blogHead(page.value, route.query)));
+useBlogEngagement({ page, route });
 async function load() {
   controller?.abort();
   controller = new AbortController();
@@ -73,6 +76,7 @@ async function copyLink() {
       `${BLOG_ORIGIN}/blog/${post.value.slug}`,
     );
     copied.value = true;
+    trackEvent("blog_share", { ...postParams(post.value), method: "copy_link" });
   } catch {
     error.value =
       "Não foi possível copiar o link. Você pode copiar o endereço na barra do navegador.";
@@ -129,6 +133,8 @@ async function copyLink() {
             <a
               :href="blogQuery(route.query, { category: '', page: 1 })"
               :aria-current="!route.query.category ? 'page' : undefined"
+              data-blog-event="category_click"
+              data-blog-label="Todos os temas"
               >Todos os temas</a
             ><a
               v-for="category in result.categories"
@@ -137,11 +143,14 @@ async function copyLink() {
               :aria-current="
                 route.query.category === category ? 'page' : undefined
               "
+              data-blog-event="category_click"
+              :data-blog-label="category"
               >{{ category }}</a
             >
           </nav>
           <form
             role="search"
+            data-blog-search
             action="/blog"
             method="get"
             @submit.prevent="submitSearch"
@@ -202,6 +211,7 @@ async function copyLink() {
             v-for="(article, index) in result.data"
             :key="article._id"
             :post="article"
+            :position="index + 1"
             :featured="
               index === 0 &&
               result.page === 1 &&
@@ -256,8 +266,8 @@ async function copyLink() {
       </template>
       <template v-else-if="post">
         <nav class="ad-blog-breadcrumb" aria-label="Caminho">
-          <a href="/blog">Blog</a><span>/</span
-          ><a :href="blogQuery({ category: post.category })">{{
+          <a href="/blog" data-blog-event="breadcrumb_click" data-blog-label="Blog">Blog</a><span>/</span
+          ><a :href="blogQuery({ category: post.category })" data-blog-event="breadcrumb_click" :data-blog-label="post.category">{{
             post.category
           }}</a>
         </nav>
@@ -296,6 +306,8 @@ async function copyLink() {
                 )"
                 :key="heading.id"
                 :href="`#${heading.id}`"
+                data-blog-event="toc_click"
+                :data-blog-label="heading.text"
                 >{{ heading.text }}</a
               >
             </aside>
@@ -305,14 +317,14 @@ async function copyLink() {
               <h2>Fontes e referências</h2>
               <ul>
                 <li v-for="source in post.sources" :key="source.url">
-                  <a :href="source.url" rel="noopener noreferrer">{{
+                  <a :href="source.url" rel="noopener noreferrer" data-blog-event="source_click" :data-blog-label="source.title">{{
                     source.title
                   }}</a>
                 </li>
               </ul>
             </section>
             <nav class="ad-blog-tags" aria-label="Tags">
-              <a v-for="tag in post.tags" :key="tag" :href="blogQuery({ tag })"
+              <a v-for="tag in post.tags" :key="tag" :href="blogQuery({ tag })" data-blog-event="tag_click" :data-blog-label="tag"
                 >#{{ tag }}</a
               >
             </nav>
@@ -323,6 +335,8 @@ async function copyLink() {
                 v-if="post.author?.url"
                 :href="post.author.url"
                 rel="noopener noreferrer"
+                data-blog-event="author_click"
+                :data-blog-label="post.author.name"
                 >Sobre o autor</a
               >
             </aside>
@@ -340,12 +354,16 @@ async function copyLink() {
                 variant="outline"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-blog-event="share"
+                data-blog-label="whatsapp"
                 >WhatsApp</AppButton
               ><AppButton
                 :href="`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${BLOG_ORIGIN}/blog/${post.slug}`)}`"
                 variant="outline"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-blog-event="share"
+                data-blog-label="linkedin"
                 >LinkedIn</AppButton
               >
             </nav>
@@ -355,9 +373,11 @@ async function copyLink() {
           <h2>Continue a leitura</h2>
           <div class="ad-blog-grid">
             <BlogCard
-              v-for="article in post.related"
+              v-for="(article, index) in post.related"
               :key="article._id"
               :post="article"
+              :position="index + 1"
+              event="related_click"
             />
           </div>
         </section>
@@ -368,7 +388,7 @@ async function copyLink() {
           <h2>Sua clínica pode ter<br />uma rotina mais leve.</h2>
           <p>Conheça o Agenda Doutor e dedique mais tempo ao que importa.</p>
         </div>
-        <AppButton to="/register" variant="primary" size="lg"
+        <AppButton to="/register" variant="primary" size="lg" data-blog-event="cta_click" :data-blog-label="post ? `article_cta` : `list_cta`" :data-blog-slug="post?.slug"
           >Começar agora <ArrowRight :size="18"
         /></AppButton>
       </aside>

@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import handler from "../api/blog.js";
-import { defaultBlogApiOrigin } from "../dist/server/entry-server.js";
+import { readFileSync } from "node:fs";
+import { defaultBlogApiOrigin, renderBlog } from "../dist/server/entry-server.js";
 
 test("blog SSR uses the existing LP API configuration without an extra environment variable", async () => {
   const originalFetch = globalThis.fetch;
@@ -58,4 +59,35 @@ test("blog SSR uses the existing LP API configuration without an extra environme
       else process.env[key] = previous[key];
     }
   }
+});
+
+test("artigo expõe SEO/GEO completo e links rastreáveis no HTML inicial", async () => {
+  const manifest = JSON.parse(
+    readFileSync(new URL("../dist/.vite/manifest.json", import.meta.url), "utf8"),
+  );
+  const post = {
+    _id: "1",
+    slug: "teste",
+    title: "Como reduzir faltas",
+    excerpt: "Resumo",
+    category: "Gestão",
+    tags: ["agenda"],
+    readingMinutes: 4,
+    publishedAt: "2026-11-01T10:00:00Z",
+    updatedAt: "2026-11-10T10:00:00Z",
+    author: { name: "Dra. Ana" },
+    contentHtml: "<p>um dois três</p>",
+    sources: [{ title: "OMS", url: "https://who.int" }],
+    related: [],
+  };
+  const html = await renderBlog("/blog/teste", { kind: "article", post }, manifest);
+  assert.match(html, /"@type":"BlogPosting"/);
+  assert.match(html, /"wordCount":3/);
+  assert.match(html, /"citation"/);
+  assert.match(html, /property="og:locale" content="pt_BR"/);
+  assert.match(html, /property="article:section" content="Gestão"/);
+  assert.match(html, /max-snippet:-1/);
+  assert.match(html, /hreflang="x-default"/);
+  assert.match(html, /data-blog-event="source_click"/);
+  assert.match(html, /data-blog-event="cta_click"/);
 });
